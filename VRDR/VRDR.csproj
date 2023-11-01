@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>VRDR</RootNamespace>
+    <Version>4.1.7</Version>
     <DocumentationFile>DeathRecord.xml</DocumentationFile>
     <!-- <DocumentationFile>DeathRecord.md</DocumentationFile> -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
