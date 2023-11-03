@@ -12,6 +12,8 @@ using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Hl7.FhirPath;
 using Newtonsoft.Json;
+using VR;
+
 
 // DeathRecord_fieldsAndCreateMethods.cs
 //     Contains field definitions and associated createXXXX methods used to construct a field
@@ -29,22 +31,22 @@ namespace VRDR
         public static string BlankPlaceholder = "BLANK";
 
         /// <summary>Mortality data for code translations.</summary>
-        private MortalityData MortalityData = MortalityData.Instance;
-
-        /// <summary>Useful for navigating around the FHIR Bundle using FHIRPaths.</summary>
-        private ITypedElement Navigator;
-
-        /// <summary>Bundle that contains the death record.</summary>
-        private Bundle Bundle;
-
-        /// <summary>Composition that described what the Bundle is, as well as keeping references to its contents.</summary>
-        private Composition Composition;
+        private IJEData MortalityData = IJEData.Instance;
 
         /// <summary>The Decedent.</summary>
         private Patient Decedent;
 
         /// <summary>The Decedent's Race and Ethnicity provided by Jurisdiction.</summary>
         private Observation InputRaceAndEthnicityObs;
+
+        /// <summary>CompositionSections that define the codes that represent the different sections in the composition</summary>
+        protected override string[] CompositionSections
+        {
+            get
+            {
+                return new string[]{ "DecedentDemographics", "DeathInvestigation", "DeathCertification", "DecedentDisposition", "CodedContent"};
+            } 
+        }
 
         /// <summary> Create Input Race and Ethnicity </summary>
 
@@ -580,6 +582,5 @@ namespace VRDR
 
         /// <summary>Record Axis Cause of Death</summary>
         private List<Observation> RecordAxisCauseOfDeathObsList;
-
     }
 }

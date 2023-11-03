@@ -4,120 +4,6 @@
         <name>DeathRecord</name>
     </assembly>
     <members>
-        <member name="T:VRDR.CodeSystems">
-            <summary>Single definitions for CodeSystem OIDs and URLs used throughout. </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.SCT">
-            <summary>SNOMEDCT.</summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.LOINC">
-            <summary>LOINC.</summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.ICD10">
-            <summary> ICD10 </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.US_SSN">
-            <summary>Social Security Numbers.</summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.ObservationCategory">
-            <summary>Observation Category. </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.NullFlavor_HL7_V3">
-            <summary>HL7 V3 Null Flavor.</summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.Data_Absent_Reason_HL7_V3">
-            <summary>HL7 Data Absent reason.</summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.YesNo_0136HL7_V2">
-            <summary>HL7 Yes No.</summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.PH_MaritalStatus_HL7_2x">
-            <summary>PHINVADS Marital Status.</summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.HL7_location_physical_type">
-            <summary>HL7 Location Physical Type.</summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.US_NPI_HL7">
-            <summary> US NPI HL7  </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.HL7_identifier_type">
-            <summary>HL7 Identifier Type.</summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.RoleCode_HL7_V3">
-            <summary>HL7 RoleCode.</summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.AdministrativeGender">
-            <summary> Administrative Gender </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.EducationLevel">
-            <summary> Education Level </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.DegreeLicenceAndCertificate">
-            <summary> Degree Licence and Certificate </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.UnitsOfMeasure">
-            <summary> Units of Measure </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.YesNo">
-            <summary> HL7 Yes No </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.BypassEditFlag">
-            <summary> Bypass Edit Flag </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.PregnancyStatus">
-            <summary> Pregnancy Status </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.MissingValueReason">
-            <summary> Missing Value Reason </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.FilingFormat">
-            <summary> Filing Format </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.DocumentSections">
-            <summary> Composition document sections </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.ReplaceStatus">
-            <summary> Replace Status </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.LocationType">
-            <summary> Location Type </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.OrganizationType">
-            <summary> Organization Type </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.ActivityAtTimeOfDeath">
-            <summary> Activity at Time of Death </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.RaceCode">
-            <summary> Race Code </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.RaceRecode40">
-            <summary> Race Recode40 </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.HispanicOrigin">
-            <summary> Hispanic Origin </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.IntentionalReject">
-            <summary> Intentional Reject </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.SystemReject">
-            <summary> System Reject </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.TransaxConversion">
-            <summary> Hispanic Origin </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.ObservationCode">
-            <summary> Observation Codes </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.ComponentCode">
-            <summary> Component Codes </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.Component">
-            <summary> Component </summary>
-        </member>
-        <member name="F:VRDR.CodeSystems.DateOfDeathDeterminationMethods">
-            <summary> Date of Death Determination Methods </summary>
-        </member>
         <member name="T:VRDR.Connectathon">
             <summary>Class <c>Connectathon</c> provides static methods for generating records used in Connectathon testing, used in Canary and in the CLI tool</summary>
         </member>
@@ -183,30 +69,6 @@
             <param name="bundle">represents a FHIR Bundle.</param>
             <exception cref="T:System.ArgumentException">Record is invalid.</exception>
         </member>
-        <member name="M:VRDR.DeathRecord.ToXML">
-            <summary>Helper method to return a XML string representation of this Death Record.</summary>
-            <returns>a string representation of this Death Record in XML format</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.ToXml">
-            <summary>Helper method to return a XML string representation of this Death Record.</summary>
-            <returns>a string representation of this Death Record in XML format</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.ToJSON">
-            <summary>Helper method to return a JSON string representation of this Death Record.</summary>
-            <returns>a string representation of this Death Record in JSON format</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.ToJson">
-            <summary>Helper method to return a JSON string representation of this Death Record.</summary>
-            <returns>a string representation of this Death Record in JSON format</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetITypedElement">
-            <summary>Helper method to return an ITypedElement of the record bundle.</summary>
-            <returns>an ITypedElement of the record bundle</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetBundle">
-            <summary>Helper method to return a the bundle.</summary>
-            <returns>a FHIR Bundle</returns>
-        </member>
         <member name="M:VRDR.DeathRecord.GetDeathCertificateDocumentBundle">
             <summary>
             Helper method to return the bundle that makes up a CauseOfDeathCodedContent bundle. This is actually
@@ -227,25 +89,6 @@
             <summary>Helper method to return the subset of this record that makes up a Mortality Roster bundle.</summary>
             <returns>a new FHIR Bundle</returns>
         </member>
-        <member name="M:VRDR.DeathRecord.GetComposition">
-            <summary>Return a reference to the Composition object for unit testing.</summary>
-        </member>
-        <member name="M:VRDR.DeathRecord.AddReferenceToComposition(System.String,System.String)">
-            <summary>Add a reference to the Death Record Composition.</summary>
-            <param name="reference">a reference.</param>
-            <param name="code">the code for the section to add to.</param>
-            The sections are from : CodeSystems.DocumentSections
-                          DecedentDemographics
-                          DeathInvestigation
-                          DeathCertification
-                          DecedentDisposition
-                          CodedContent
-        </member>
-        <member name="M:VRDR.DeathRecord.RemoveReferenceFromComposition(System.String,System.String)">
-            <summary>Remove a reference from the Death Record Composition.</summary>
-            <param name="reference">a reference.</param>
-            <param name="code">a code for the section to modify.</param>
-        </member>
         <member name="M:VRDR.DeathRecord.RestoreReferences">
             <summary>Restores class references from a newly parsed record.</summary>
         </member>
@@ -255,20 +98,14 @@
         <member name="F:VRDR.DeathRecord.MortalityData">
             <summary>Mortality data for code translations.</summary>
         </member>
-        <member name="F:VRDR.DeathRecord.Navigator">
-            <summary>Useful for navigating around the FHIR Bundle using FHIRPaths.</summary>
-        </member>
-        <member name="F:VRDR.DeathRecord.Bundle">
-            <summary>Bundle that contains the death record.</summary>
-        </member>
-        <member name="F:VRDR.DeathRecord.Composition">
-            <summary>Composition that described what the Bundle is, as well as keeping references to its contents.</summary>
-        </member>
         <member name="F:VRDR.DeathRecord.Decedent">
             <summary>The Decedent.</summary>
         </member>
         <member name="F:VRDR.DeathRecord.InputRaceAndEthnicityObs">
             <summary>The Decedent's Race and Ethnicity provided by Jurisdiction.</summary>
+        </member>
+        <member name="P:VRDR.DeathRecord.CompositionSections">
+            <summary>CompositionSections that define the codes that represent the different sections in the composition</summary>
         </member>
         <member name="M:VRDR.DeathRecord.CreateInputRaceEthnicityObs">
             <summary> Create Input Race and Ethnicity </summary>
@@ -3292,270 +3129,9 @@
             <para>Console.WriteLine($"Tobacco Use: {ExampleDeathRecord.TobaccoUseHelper}");</para>
             </example>
         </member>
-        <member name="M:VRDR.DeathRecord.GetPartialDate(Hl7.Fhir.Model.Extension,System.String)">
-            <summary>Getter helper for anything that uses PartialDateTime, allowing a particular date field (year, month, or day) to be read
-            from the extension. Returns either a numeric date part, or -1 meaning explicitly unknown, or null meaning not specified.</summary>
-        </member>
-        <member name="M:VRDR.DeathRecord.NewBlankPartialDateTimeExtension(System.Boolean)">
-            <summary>NewBlankPartialDateTimeExtension, Build a blank PartialDateTime extension (which means all the placeholder data absent
-            reasons are present to note that the data is not in fact present). This method takes an optional flag to determine if this extension
-            should include the time field, which is not always needed</summary>
-        </member>
-        <member name="M:VRDR.DeathRecord.SetPartialDate(Hl7.Fhir.Model.Extension,System.String,System.Nullable{System.Int32})">
-            <summary>Setter helper for anything that uses PartialDateTime, allowing a particular date field (year, month, or day) to be
-            set in the extension. Arguments are the extension to poplulate, the part of the URL to populate, and the value to specify.
-            The value can be a positive number for an actual value, a -1 meaning that the value is explicitly unknown, or null meaning
-            the data has not been specified.</summary>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetPartialTime(Hl7.Fhir.Model.Extension)">
-            <summary>Getter helper for anything that uses PartialDateTime, allowing the time to be read from the extension</summary>
-        </member>
-        <member name="M:VRDR.DeathRecord.SetPartialTime(Hl7.Fhir.Model.Extension,System.String)">
-            <summary>Setter helper for anything that uses PartialDateTime, allowing the time to be set in the extension</summary>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetDateFragment(Hl7.Fhir.Model.Element,System.String)">
-            <summary>Getter helper for anything that can have a regular FHIR date/time
-            field (year, month, or day) to be read the value
-            supports dates and date times but does NOT support extensions</summary>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetDateFragmentOrPartialDate(Hl7.Fhir.Model.Element,System.String)">
-            <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing a particular date
-            field (year, month, or day) to be read from either the value or the extension</summary>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetTimeFragment(Hl7.Fhir.Model.Element)">
-            <summary>Getter helper for anything that can have a regular FHIR date/time, allowing the time to be read from the value</summary>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetTimeFragmentOrPartialTime(Hl7.Fhir.Model.Element)">
-            <summary>Getter helper for anything that can have a regular FHIR date/time or a PartialDateTime extension, allowing the time to be read
-            from either the value or the extension</summary>
-        </member>
-        <member name="M:VRDR.DeathRecord.SetCodeValue(System.String,System.String,System.String[0:,0:])">
-            <summary>Helper function to set a codeable value based on a code and the set of allowed codes.</summary>
-        </member>
-        <member name="M:VRDR.DeathRecord.DictToCoding(System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>Convert a "code" dictionary to a FHIR Coding.</summary>
-            <param name="dict">represents a code.</param>
-            <returns>the corresponding Coding representation of the code.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.DictToCodeableConcept(System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>Convert a "code" dictionary to a FHIR CodableConcept.</summary>
-            <param name="dict">represents a code.</param>
-            <returns>the corresponding CodeableConcept representation of the code.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.IsDictEmptyOrDefault(System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>Check if a dictionary is empty or a default empty dictionary (all values are null or empty strings)</summary>
-            <param name="dict">represents a code.</param>
-            <returns>A boolean identifying whether the provided dictionary is empty or default.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.CodingToDict(Hl7.Fhir.Model.Coding)">
-            <summary>Convert a FHIR Coding to a "code" Dictionary</summary>
-            <param name="coding">a FHIR Coding.</param>
-            <returns>the corresponding Dictionary representation of the code.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.CodeableConceptToDict(Hl7.Fhir.Model.CodeableConcept)">
-            <summary>Convert a FHIR CodableConcept to a "code" Dictionary</summary>
-            <param name="codeableConcept">a FHIR CodeableConcept.</param>
-            <returns>the corresponding Dictionary representation of the code.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.DictToAddress(System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>Convert an "address" dictionary to a FHIR Address.</summary>
-            <param name="dict">represents an address.</param>
-            <returns>the corresponding FHIR Address representation of the address.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.DatePartsToArray(Hl7.Fhir.Model.Extension)">
-            <summary>Convert a Date Part Extension to an Array.</summary>
-            <param name="datePartAbsent">a Date Part Extension.</param>
-            <returns>the corresponding array representation of the date parts.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.DatePartToIntegerOrCode(System.Tuple{System.String,System.String})">
-            <summary>Convert an element to an integer or code depending on if the input element is a date part.</summary>
-            <param name="pair">A key value pair, the key will be used to identify whether the element is a date part.</param>
-        </member>
-        <member name="M:VRDR.DeathRecord.AddressToDict(Hl7.Fhir.Model.Address)">
-            <summary>Convert a FHIR Address to an "address" Dictionary.</summary>
-            <param name="addr">a FHIR Address.</param>
-            <returns>the corresponding Dictionary representation of the FHIR Address.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.EmptyAddrDict">
-            <summary>Returns an empty "address" Dictionary.</summary>
-            <returns>an empty "address" Dictionary.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.EmptyCodeDict">
-            <summary>Returns an empty "code" Dictionary.</summary>
-            <returns>an empty "code" Dictionary.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.EmptyCodeableDict">
-            <summary>Returns an empty "codeable" Dictionary.</summary>
-            <returns>an empty "codeable" Dictionary.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetAll(System.String)">
-            <summary>Given a FHIR path, return the elements that match the given path;
-            returns an empty array if no matches are found.</summary>
-            <param name="path">represents a FHIR path.</param>
-            <returns>all elements that match the given path, or an empty array if no matches are found.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetFirst(System.String)">
-            <summary>Given a FHIR path, return the first element that matches the given path.</summary>
-            <param name="path">represents a FHIR path.</param>
-            <returns>the first element that matches the given path, or null if no match is found.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetLast(System.String)">
-            <summary>Given a FHIR path, return the last element that matches the given path.</summary>
-            <param name="path">represents a FHIR path.</param>
-            <returns>the last element that matches the given path, or null if no match is found.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetAllString(System.String)">
-            <summary>Given a FHIR path, return the elements that match the given path as a string;
-            returns an empty array if no matches are found.</summary>
-            <param name="path">represents a FHIR path.</param>
-            <returns>all elements that match the given path as a string, or an empty array if no matches are found.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetFirstString(System.String)">
-            <summary>Given a FHIR path, return the first element that matches the given path as a string;
-            returns null if no match is found.</summary>
-            <param name="path">represents a FHIR path.</param>
-            <returns>the first element that matches the given path as a string, or null if no match is found.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetLastString(System.String)">
-            <summary>Given a FHIR path, return the last element that matches the given path as a string;
-            returns an empty string if no match is found.</summary>
-            <param name="path">represents a FHIR path.</param>
-            <returns>the last element that matches the given path as a string, or null if no match is found.</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.GetValue(System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
-            <summary>Get a value from a Dictionary, but return null if the key doesn't exist or the value is an empty string.</summary>
-        </member>
-        <member name="M:VRDR.DeathRecord.UpdateDictionary(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>Combine the given dictionaries and return the combined result.</summary>
-        </member>
-        <member name="M:VRDR.DeathRecord.ToDescription">
-            <summary>Returns a JSON encoded structure that maps to the various property
-            annotations found in the DeathRecord class. This is useful for scenarios
-            where you may want to display the data in user interfaces.</summary>
-            <returns>a string representation of this Death Record in a descriptive format.</returns>
-        </member>
         <member name="M:VRDR.DeathRecord.FromDescription(System.String)">
-            <summary>Helper method to return a JSON string representation of this Death Record.</summary>
-            <param name="contents">string that represents </param>
-            <returns>a new DeathRecord that corresponds to the given descriptive format</returns>
-        </member>
-        <member name="M:VRDR.DeathRecord.updateGivenHumanName(System.String[],System.Collections.Generic.List{Hl7.Fhir.Model.HumanName})">
-            <summary>Helper method to create a HumanName from a list of strings.</summary>
-            <param name="value">A list of strings to be converted into a name.</param>
-            <param name="names">The current list of HumanName attributes for the person.</param>
-        </member>
-        <member name="M:VRDR.DeathRecord.ValidatePartialDates(Hl7.Fhir.Model.Bundle)">
-            <summary>Helper method to validate that all PartialDate and PartialDateTime exensions are valid and have the valid required sub-extensions.</summary>
-            <param name="bundle">The bundle in which to validate the PartialDate/Time extensions.</param>
-        </member>
-        <member name="T:VRDR.Property">
-            <summary>Property attribute used to describe a DeathRecord property.</summary>
-        </member>
-        <member name="T:VRDR.Property.Types">
-            <summary>Enum for describing the property type.</summary>
-        </member>
-        <member name="F:VRDR.Property.Types.String">
-            <summary>Parameter is a string.</summary>
-        </member>
-        <member name="F:VRDR.Property.Types.StringArr">
-            <summary>Parameter is an array of strings.</summary>
-        </member>
-        <member name="F:VRDR.Property.Types.StringDateTime">
-            <summary>Parameter is like a string, but should be treated as a date and time.</summary>
-        </member>
-        <member name="F:VRDR.Property.Types.Bool">
-            <summary>Parameter is a bool.</summary>
-        </member>
-        <member name="F:VRDR.Property.Types.Dictionary">
-            <summary>Parameter is a Dictionary.</summary>
-        </member>
-        <member name="F:VRDR.Property.Types.TupleArr">
-            <summary>Parameter is an array of Tuples.</summary>
-        </member>
-        <member name="F:VRDR.Property.Types.TupleCOD">
-            <summary>Parameter is an array of Tuples, specifically for CausesOfDeath.</summary>
-        </member>
-        <member name="F:VRDR.Property.Types.Int32">
-            <summary>Parameter is an unsigned integer.</summary>
-        </member>
-        <member name="F:VRDR.Property.Types.Tuple4Arr">
-            <summary>Parameter is an array of 4-Tuples, specifically for entity axis codes.</summary>
-        </member>
-        <member name="F:VRDR.Property.Name">
-            <summary>Name of this property.</summary>
-        </member>
-        <member name="F:VRDR.Property.Type">
-            <summary>The property type (e.g. string, bool, Dictionary).</summary>
-        </member>
-        <member name="F:VRDR.Property.Category">
-            <summary>Category of this property.</summary>
-        </member>
-        <member name="F:VRDR.Property.Description">
-            <summary>Description of this property.</summary>
-        </member>
-        <member name="F:VRDR.Property.Serialize">
-            <summary>If this field should be kept when serialzing.</summary>
-        </member>
-        <member name="F:VRDR.Property.IGUrl">
-            <summary>URL that links to the IG description for this property.</summary>
-        </member>
-        <member name="F:VRDR.Property.CapturedInIJE">
-            <summary>If this field has an equivalent in IJE.</summary>
-        </member>
-        <member name="F:VRDR.Property.Priority">
-            <summary>Priority that this should show up in generated lists. Lower numbers come first.</summary>
-        </member>
-        <member name="M:VRDR.Property.#ctor(System.String,VRDR.Property.Types,System.String,System.String,System.Boolean,System.String,System.Boolean,System.Int32)">
-            <summary>Constructor.</summary>
-        </member>
-        <member name="T:VRDR.PropertyParam">
-            <summary>Property attribute used to describe a DeathRecord property parameter,
-            specifically if the property is a dictionary that has keys.</summary>
-        </member>
-        <member name="F:VRDR.PropertyParam.Key">
-            <summary>If the related property is a Dictionary, the key name.</summary>
-        </member>
-        <member name="F:VRDR.PropertyParam.Description">
-            <summary>Description of this parameter.</summary>
-        </member>
-        <member name="M:VRDR.PropertyParam.#ctor(System.String,System.String)">
-            <summary>Constructor.</summary>
-        </member>
-        <member name="T:VRDR.FHIRPath">
-            <summary>Describes a FHIR path that can be used to get to the element.</summary>
-        </member>
-        <member name="F:VRDR.FHIRPath.Path">
-            <summary>The relevant FHIR path.</summary>
-        </member>
-        <member name="F:VRDR.FHIRPath.Element">
-            <summary>The relevant element.</summary>
-        </member>
-        <member name="M:VRDR.FHIRPath.#ctor(System.String,System.String)">
-            <summary>Constructor.</summary>
-        </member>
-        <member name="T:VRDR.IJEField">
-            <summary>Property attribute used to describe a field in the IJE Mortality format.</summary>
-        </member>
-        <member name="F:VRDR.IJEField.Field">
-            <summary>Field number.</summary>
-        </member>
-        <member name="F:VRDR.IJEField.Location">
-            <summary>Beginning location.</summary>
-        </member>
-        <member name="F:VRDR.IJEField.Length">
-            <summary>Field length.</summary>
-        </member>
-        <member name="F:VRDR.IJEField.Contents">
-            <summary>Description of what the field contains.</summary>
-        </member>
-        <member name="F:VRDR.IJEField.Name">
-            <summary>Field name.</summary>
-        </member>
-        <member name="F:VRDR.IJEField.Priority">
-            <summary>Priority - lower will be "GET" and "SET" earlier.</summary>
-        </member>
-        <member name="M:VRDR.IJEField.#ctor(System.Int32,System.Int32,System.Int32,System.String,System.String,System.Int32)">
-            <summary>Constructor.</summary>
+            <summary>Helper method to return a JSON string representation of this Death Record. Redundant due to VitalRecord.FromDescription[RecordType], but kept to maintain backwards compatibility.</summary>
+            <returns>a new Death Record that corresponds to the given descriptive format</returns>
         </member>
         <member name="T:VRDR.IJEMortality">
             <summary>A "wrapper" class to convert between a FHIR based <c>DeathRecord</c> and
@@ -3564,6 +3140,9 @@
             FHIR based <c>DeathRecord</c> to the IJE format for a specific field, and
             the setters convert from IJE format for a specific field and set that value
             on the embedded FHIR based <c>DeathRecord</c>.</summary>
+        </member>
+        <member name="P:VRDR.IJEMortality.IJELength">
+            <summary>Length of the IJE file</summary>
         </member>
         <member name="F:VRDR.IJEMortality.trx">
             <summary>Utility location to provide support for setting TRX-only fields that have no mapping in IJE when creating coding response records</summary>
@@ -3601,12 +3180,6 @@
         <member name="F:VRDR.IJEMortality.record">
             <summary>FHIR based death record.</summary>
         </member>
-        <member name="F:VRDR.IJEMortality.dataLookup">
-            <summary>IJE data lookup helper. Thread-safe singleton!</summary>
-        </member>
-        <member name="F:VRDR.IJEMortality.validationErrors">
-            <summary>Validation errors encountered while converting a record</summary>
-        </member>
         <member name="M:VRDR.IJEMortality.#ctor(VRDR.DeathRecord,System.Boolean)">
             <summary>Constructor that takes a <c>DeathRecord</c>.</summary>
         </member>
@@ -3616,19 +3189,18 @@
         <member name="M:VRDR.IJEMortality.#ctor">
             <summary>Constructor that creates an empty record for constructing records using the IJE properties.</summary>
         </member>
-        <member name="M:VRDR.IJEMortality.ToString">
-            <summary>Converts the internal <c>DeathRecord</c> into an IJE string.</summary>
+        <member name="P:VRDR.IJEMortality.Record">
+            <summary>Provides the IJE base class with access to the contained DeathRecord instance.</summary>
         </member>
         <member name="M:VRDR.IJEMortality.ToDeathRecord">
-            <summary>Returns the corresponding <c>DeathRecord</c> for this IJE string.</summary>
+            <summary>Returns the corresponding <c>DeathRecord</c> for this IJE string.
+            Redundant due to VitalRecord.ToRecord(), but kept to maintain backwards compatibility.</summary>
         </member>
-        <member name="M:VRDR.IJEMortality.Truncate(System.String,System.Int32)">
-            <summary>Truncates the given string to the given length.</summary>
+        <member name="M:VRDR.IJEMortality.ToRecord">
+            <summary>Returns the corresponding <c>DeathRecord</c> for this IJE string</summary>
+            Hides the IJE ToRecord method that returns a VitalRecord instead of a DeathRecord
         </member>
-        <member name="M:VRDR.IJEMortality.FieldInfo(System.String)">
-            <summary>Grabs the IJEInfo for a specific IJE field name.</summary>
-        </member>
-        <member name="M:VRDR.IJEMortality.DateTimeStringHelper(VRDR.IJEField,System.String,System.String,System.DateTimeOffset,System.Boolean,System.Boolean)">
+        <member name="M:VRDR.IJEMortality.DateTimeStringHelper(VR.IJEField,System.String,System.String,System.DateTimeOffset,System.Boolean,System.Boolean)">
             <summary>Helps decompose a DateTime into individual parts (year, month, day, time).</summary>
         </member>
         <member name="M:VRDR.IJEMortality.DateTime_Get(System.String,System.String,System.String)">
@@ -3636,14 +3208,6 @@
         </member>
         <member name="M:VRDR.IJEMortality.DateTime_Set(System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
             <summary>Set a value on the DeathRecord whose type is some part of a DateTime.</summary>
-        </member>
-        <member name="M:VRDR.IJEMortality.NumericAllowingUnknown_Get(System.String,System.String)">
-            <summary>Get a value on the DeathRecord that is a numeric string with the option of being set to all 9s on the IJE side and -1 on the
-            FHIR side to represent'unknown' and blank on the IJE side and null on the FHIR side to represent unspecified</summary>
-        </member>
-        <member name="M:VRDR.IJEMortality.NumericAllowingUnknown_Set(System.String,System.String,System.String)">
-            <summary>Set a value on the DeathRecord that is a numeric string with the option of being set to all 9s on the IJE side and -1 on the
-            FHIR side to represent'unknown' and blank on the IJE side and null on the FHIR side to represent unspecified</summary>
         </member>
         <member name="M:VRDR.IJEMortality.TimeAllowingUnknown_Get(System.String,System.String)">
             <summary>Get a value on the DeathRecord that is a time with the option of being set to all 9s on the IJE side and null on the FHIR side to represent null</summary>
@@ -3653,15 +3217,6 @@
         </member>
         <member name="M:VRDR.IJEMortality.RightJustifiedZeroed_Get(System.String,System.String)">
             <summary>Get a value on the DeathRecord whose IJE type is a right justified, zero filled string.</summary>
-        </member>
-        <member name="M:VRDR.IJEMortality.RightJustifiedZeroed_Set(System.String,System.String,System.String)">
-            <summary>Set a value on the DeathRecord whose IJE type is a right justified, zero filled string.</summary>
-        </member>
-        <member name="M:VRDR.IJEMortality.LeftJustified_Get(System.String,System.String)">
-            <summary>Get a value on the DeathRecord whose IJE type is a left justified string.</summary>
-        </member>
-        <member name="M:VRDR.IJEMortality.LeftJustified_Set(System.String,System.String,System.String)">
-            <summary>Set a value on the DeathRecord whose IJE type is a left justified string.</summary>
         </member>
         <member name="M:VRDR.IJEMortality.Dictionary_Get(System.String,System.String,System.String)">
             <summary>Get a value on the DeathRecord whose property is a Dictionary type.</summary>
@@ -3683,22 +3238,6 @@
         </member>
         <member name="M:VRDR.IJEMortality.Set_Race(System.String,System.String)">
             <summary>Adds the given race to the record.</summary>
-        </member>
-        <member name="M:VRDR.IJEMortality.Get_MappingFHIRToIJE(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
-            <summary>Given a Dictionary mapping FHIR codes to IJE strings and the relevant FHIR and IJE fields pull the value
-            from the FHIR record object and provide the appropriate IJE string</summary>
-            <param name="mapping">Dictionary for mapping the desired concept from FHIR to IJE; these dictionaries are defined in Mappings.cs</param>
-            <param name="fhirField">Name of the FHIR field to get from the record; must have a related Helper property, e.g., EducationLevel must have EducationLevelHelper</param>
-            <param name="ijeField">Name of the IJE field that the FHIR field content is being placed into</param>
-            <returns>The IJE value of the field translated from the FHIR value on the record</returns>
-        </member>
-        <member name="M:VRDR.IJEMortality.Set_MappingIJEToFHIR(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.String)">
-            <summary>Given a Dictionary mapping IJE codes to FHIR strings and the relevant IJE and FHIR fields translate the IJE
-            string to the appropriate FHIR code and set the value on the FHIR record object</summary>
-            <param name="mapping">Dictionary for mapping the desired concept from IJE to FHIR; these dictionaries are defined in Mappings.cs</param>
-            <param name="ijeField">Name of the IJE field that the FHIR field content is being set from</param>
-            <param name="fhirField">Name of the FHIR field to set on the record; must have a related Helper property, e.g., EducationLevel must have EducationLevelHelper</param>
-            <param name="value">The value to translate from IJE to FHIR and set on the record</param>
         </member>
         <member name="M:VRDR.IJEMortality.NCHSICD10toActualICD10(System.String)">
             <summary>NCHS ICD10 to actual ICD10 </summary>
@@ -4758,75 +4297,6 @@
         </member>
         <member name="F:VRDR.Mappings.YesNoUnknownNotApplicable.FHIRToIJE">
             <summary>FHIR -> IJE Mapping for YesNoUnknownNotApplicable</summary>
-        </member>
-        <member name="T:VRDR.MortalityData">
-            <summary>Data helper class for dealing with IJE mortality data. Follows Singleton-esque pattern!</summary>
-        </member>
-        <member name="P:VRDR.MortalityData.Instance">
-            <summary>Instance get method for singleton.</summary>
-        </member>
-        <member name="M:VRDR.MortalityData.StateNameToStateCode(System.String)">
-            <summary>Given a State, Territory, or Province name - return the representative State code.</summary>
-        </member>
-        <member name="M:VRDR.MortalityData.JurisdictionNameToJurisdictionCode(System.String)">
-            <summary>Given a Jurisdiction code - return the Jurisdiction name.</summary>
-        </member>
-        <member name="M:VRDR.MortalityData.JurisdictionCodeToJurisdictionName(System.String)">
-            <summary>Given a Jurisdiction name - return the representative Jurisdiction code.</summary>
-        </member>
-        <member name="M:VRDR.MortalityData.StateCodeToStateName(System.String)">
-            <summary>Given a State, Territory, or Province code - return the representative State, Territory, or Province name.</summary>
-        </member>
-        <member name="M:VRDR.MortalityData.CountryNameToCountryCode(System.String)">
-            <summary>Given a Country name - return the representative Country code.</summary>
-        </member>
-        <member name="M:VRDR.MortalityData.CountryCodeToCountryName(System.String)">
-            <summary>Given a Country code - return the representative Country name.</summary>
-        </member>
-        <member name="M:VRDR.MortalityData.DictKeyFinderHelper``1(``0,System.String)">
-            <summary>Given a value in a &lt;string, string&gt; object, return the first matching key.</summary>
-        </member>
-        <member name="M:VRDR.MortalityData.DictValueFinderHelper``1(``0,System.String)">
-            <summary>Given a key in a (string, string) object, return the first matching value.</summary>
-        </member>
-        <member name="F:VRDR.MortalityData.JurisdictionCodes">
-            <summary>Jurisdiction Codes</summary>
-        </member>
-        <member name="F:VRDR.MortalityData.StateTerritoryProvinceCodes">
-            <summary>State and Territory Province Codes</summary>
-        </member>
-        <member name="F:VRDR.MortalityData.CountryCodes">
-            <summary>Country Codes based on PH_Country_GEC = 2.16.840.1.113883.13.250    </summary>
-        </member>
-        <member name="T:VRDR.LinqHelper">
-            <summary>Internal Helper class which provides Trimming and Case-Insensitive comparison of LINQ Queries.</summary>
-        </member>
-        <member name="M:VRDR.LinqHelper.EqualsInsensitive(System.String,System.String)">
-            <summary>Adds a extension to handle case insensitive comparisons, always Trims second parameter.</summary>
-        </member>
-        <member name="T:VRDR.OtherProfileURL">
-            <summary>Profile URLs for non-VRDR Profiles</summary>
-        </member>
-        <member name="F:VRDR.OtherProfileURL.USCorePractitioner">
-            <summary>URL for USCorePractitioner</summary>
-        </member>
-        <member name="T:VRDR.OtherExtensionURL">
-            <summary>Extension URLs for non-VRDR Profiles</summary>
-        </member>
-        <member name="F:VRDR.OtherExtensionURL.DataAbsentReason">
-            <summary>URL for DataAbsentReason</summary>
-        </member>
-        <member name="F:VRDR.OtherExtensionURL.PatientBirthPlace">
-            <summary>URL for PatientBirthPlace</summary>
-        </member>
-        <member name="F:VRDR.OtherExtensionURL.BirthSex">
-            <summary>URL for US Core Birthsex </summary>
-        </member>
-        <member name="T:VRDR.OtherIGURL">
-            <summary>IG URLs for non-VRDR Profiles</summary>
-        </member>
-        <member name="F:VRDR.OtherIGURL.USCorePractitioner">
-            <summary>URL for USCorePractitioner</summary>
         </member>
         <member name="T:VRDR.PlaceCode">
             <summary>Helper class providing more descriptive definitions for each PlaceCode field</summary>

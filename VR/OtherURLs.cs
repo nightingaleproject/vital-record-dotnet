@@ -1,4 +1,4 @@
-namespace VRDR
+namespace VR
 {
     /// <summary>Profile URLs for non-VRDR Profiles</summary>
     public static class OtherProfileURL

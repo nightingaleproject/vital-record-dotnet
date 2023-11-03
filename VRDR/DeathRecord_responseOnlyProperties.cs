@@ -12,6 +12,7 @@ using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Hl7.FhirPath;
 using Newtonsoft.Json;
+using VR;
 
 // DeathRecord_responseOnlyProperties.cs
 //    These fields are used ONLY in coded messages sent from NCHS to EDRS corresponding to TRX and MRE content.

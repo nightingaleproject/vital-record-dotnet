@@ -545,7 +545,7 @@ namespace VRDR.Tests
             ije.AUTOPF = "Y";
             ije.TOBAC = "Y";
             ije.PREG = "1";
-            CauseOfDeathCodingMessage message = new CauseOfDeathCodingMessage(ije.ToDeathRecord());
+            CauseOfDeathCodingMessage message = new CauseOfDeathCodingMessage(ije.ToRecord());
             message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
             message.MessageDestination = "https://example.org/jurisdiction/endpoint";
             message.CodedMessageId = "378888";
@@ -620,7 +620,7 @@ namespace VRDR.Tests
             ije.AUTOPF = "Y";
             ije.TOBAC = "Y";
             ije.PREG = "1";
-            CauseOfDeathCodingUpdateMessage message = new CauseOfDeathCodingUpdateMessage(ije.ToDeathRecord());
+            CauseOfDeathCodingUpdateMessage message = new CauseOfDeathCodingUpdateMessage(ije.ToRecord());
             message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
             message.MessageDestination = "https://example.org/jurisdiction/endpoint";
             Assert.Equal(CauseOfDeathCodingUpdateMessage.MESSAGE_TYPE, message.MessageType);
@@ -708,7 +708,7 @@ namespace VRDR.Tests
             ije.RACE16 = "Cheyenne";
             ije.RACE1E = "199";
             ije.RACE16C = "B40";
-            DemographicsCodingMessage message = new DemographicsCodingMessage(ije.ToDeathRecord());
+            DemographicsCodingMessage message = new DemographicsCodingMessage(ije.ToRecord());
             message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
             message.MessageDestination = "https://example.org/jurisdiction/endpoint";
             Assert.Equal(DemographicsCodingMessage.MESSAGE_TYPE, message.MessageType);
@@ -744,7 +744,7 @@ namespace VRDR.Tests
             ije.RACE16 = "Cheyenne";
             ije.RACE1E = "199";
             ije.RACE16C = "B40";
-            DemographicsCodingUpdateMessage message = new DemographicsCodingUpdateMessage(ije.ToDeathRecord());
+            DemographicsCodingUpdateMessage message = new DemographicsCodingUpdateMessage(ije.ToRecord());
             message.MessageSource = "http://nchs.cdc.gov/vrdr_submission";
             message.MessageDestination = "https://example.org/jurisdiction/endpoint";
             Assert.Equal(DemographicsCodingUpdateMessage.MESSAGE_TYPE, message.MessageType);

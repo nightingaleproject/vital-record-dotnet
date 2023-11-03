@@ -1,4 +1,4 @@
-namespace VRDR
+namespace VR
 {
     /// <summary>Single definitions for CodeSystem OIDs and URLs used throughout. </summary>
     public static class CodeSystems

@@ -2,20 +2,20 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace VRDR
+namespace VR
 {
     /// <summary>Data helper class for dealing with IJE mortality data. Follows Singleton-esque pattern!</summary>
-    public sealed class MortalityData
+    public sealed class IJEData
     {
-        private MortalityData()
+        private IJEData()
         {
         }
         /// <summary>Instance get method for singleton.</summary>
-        public static MortalityData Instance { get { return Nested.instance; } }
+        public static IJEData Instance { get { return Nested.instance; } }
         private class Nested
         {
             static Nested() { }
-            internal static readonly MortalityData instance = new MortalityData();
+            internal static readonly IJEData instance = new IJEData();
         }
 
         // /// <summary>Given a State code, return a random PlaceCode.</summary>
