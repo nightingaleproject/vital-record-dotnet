@@ -142,7 +142,7 @@ namespace VRDR
             ije.COD1B = "MRSA Pneumonia";
             ije.INTERVAL1B = "4 Days";
             ije.PLACE1_1 = "Y";
-            DeathRecord record = ije.ToDeathRecord();
+            DeathRecord record = ije.ToRecord();
             return record;
         }
 
@@ -234,7 +234,7 @@ namespace VRDR
             ije.INTERVAL1D = "Weeks";
             ije.OTHERCONDITION = "Alcoholism";
             ije.PLACE8_1 = "00000033";
-            DeathRecord record = ije.ToDeathRecord();
+            DeathRecord record = ije.ToRecord();
             return record;
         }
 
@@ -318,7 +318,7 @@ namespace VRDR
             ije.ADDRESS_R = "2722 N Pin Oak Dr";
             ije.COD1A = "Pending";
             ije.PLACE20 = "043-A-110234";
-            DeathRecord record = ije.ToDeathRecord();
+            DeathRecord record = ije.ToRecord();
             return record;
         }
 

@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <Version>1.0.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>VRDR</RootNamespace>
-    <Version>4.1.7</Version>
     <DocumentationFile>DeathRecord.xml</DocumentationFile>
     <!-- <DocumentationFile>DeathRecord.md</DocumentationFile> -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -16,6 +16,7 @@
   <ItemGroup>
     <PackageReference Include="Hl7.Fhir.R4" Version="4.3.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <ProjectReference Include="../../vr-dotnet/VR/VitalRecord.csproj" />
     <!-- <PackageReference Include="Vsxmd" Version="1.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>

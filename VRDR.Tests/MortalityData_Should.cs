@@ -3,23 +3,24 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using VR;
 
 namespace VRDR.Tests
 {
     public class MortalityData_Should
     {
-        MortalityData mortalityData;
+        IJEData mortalityData;
 
         public MortalityData_Should()
         {
-            mortalityData = MortalityData.Instance;
+            mortalityData = IJEData.Instance;
         }
 
         [Fact]
         public void HandleOtherEthnicityDataInIJE()
         {
             IJEMortality ije1 = new IJEMortality(File.ReadAllText(FixturePath("fixtures/ije/EthnicityOtherCase.ije")), true);
-            DeathRecord dr1 = ije1.ToDeathRecord();
+            DeathRecord dr1 = ije1.ToRecord();
             IJEMortality ije1rt = new IJEMortality(dr1);
             Assert.Equal("N", ije1rt.DETHNIC1);
             Assert.Equal("N", ije1rt.DETHNIC2);
@@ -28,7 +29,7 @@ namespace VRDR.Tests
             Assert.Equal("Guatemalan", ije1rt.DETHNIC5);
 
             IJEMortality ije2 = new IJEMortality(File.ReadAllText(FixturePath("fixtures/ije/EthnicityOtherCaseNoWriteIn.ije")), true);
-            DeathRecord dr2 = ije2.ToDeathRecord();
+            DeathRecord dr2 = ije2.ToRecord();
             IJEMortality ije2rt = new IJEMortality(dr2);
             Assert.Equal("N", ije2rt.DETHNIC1);
             Assert.Equal("N", ije2rt.DETHNIC2);
@@ -36,7 +37,7 @@ namespace VRDR.Tests
             Assert.Equal("H", ije2rt.DETHNIC4);
 
             IJEMortality ije3 = new IJEMortality(File.ReadAllText(FixturePath("fixtures/ije/EthnicityPlusOtherCase.ije")), true);
-            DeathRecord dr3 = ije3.ToDeathRecord();
+            DeathRecord dr3 = ije3.ToRecord();
             IJEMortality ije3rt = new IJEMortality(dr3);
             Assert.Equal("H", ije3rt.DETHNIC1);
             Assert.Equal("N", ije3rt.DETHNIC2);
@@ -45,7 +46,7 @@ namespace VRDR.Tests
             Assert.Equal("Guatemalan", ije3rt.DETHNIC5);
 
             IJEMortality ije4 = new IJEMortality(File.ReadAllText(FixturePath("fixtures/ije/EthnicityAllH.ije")), true);
-            DeathRecord dr4 = ije4.ToDeathRecord();
+            DeathRecord dr4 = ije4.ToRecord();
             IJEMortality ije4rt = new IJEMortality(dr4);
             Assert.Equal("H", ije4rt.DETHNIC1);
             Assert.Equal("H", ije4rt.DETHNIC2);
@@ -54,7 +55,7 @@ namespace VRDR.Tests
 
             // the only time unkown are preserved in a roundtrip is when all DETHNIC fields are unknown
             IJEMortality ije5 = new IJEMortality(File.ReadAllText(FixturePath("fixtures/ije/EthnicityAllUnknown.ije")), true);
-            DeathRecord dr5 = ije5.ToDeathRecord();
+            DeathRecord dr5 = ije5.ToRecord();
             IJEMortality ije5rt = new IJEMortality(dr5);
             Assert.Equal("U", ije5rt.DETHNIC1);
             Assert.Equal("U", ije5rt.DETHNIC2);
@@ -68,7 +69,7 @@ namespace VRDR.Tests
             IJEMortality ije1 = new IJEMortality(File.ReadAllText(FixturePath("fixtures/ije/DeathLocation.ije")), true);
             Assert.Equal("MA", ije1.DSTATE);
             Assert.Equal("4", ije1.DPLACE);
-            DeathRecord dr = ije1.ToDeathRecord();
+            DeathRecord dr = ije1.ToRecord();
             Dictionary<string, string> age = new Dictionary<string, string>();
             age.Add("value", "10");
             age.Add("code", "mo");
@@ -76,7 +77,7 @@ namespace VRDR.Tests
             Assert.Equal("mo", dr.AgeAtDeath["code"]);
             IJEMortality ije1rt = new IJEMortality(dr);
             Assert.Equal("mo", dr.AgeAtDeath["code"]);
-            Assert.Equal("mo", ije1rt.ToDeathRecord().AgeAtDeath["code"]);
+            Assert.Equal("mo", ije1rt.ToRecord().AgeAtDeath["code"]);
             Assert.Equal("2", ije1rt.AGETYPE);
             Assert.Equal("010", ije1rt.AGE);
             Assert.Equal("4", ije1rt.DPLACE);
@@ -86,13 +87,13 @@ namespace VRDR.Tests
             Assert.Equal("YC", ije1.DSTATE);
             Assert.Equal("000000000001", ije1.AUXNO);
             Assert.Equal("000000000002", ije1.AUXNO2);
-            DeathRecord dr2 = ije1.ToDeathRecord();
+            DeathRecord dr2 = ije1.ToRecord();
             Assert.Equal("000000000001", dr2.StateLocalIdentifier1);
             Assert.Equal("000000000002", dr2.StateLocalIdentifier2);
             Assert.Equal("NY", dr2.DeathLocationAddress["addressState"]);
             Assert.Equal("YC", dr2.DeathLocationJurisdiction);
             IJEMortality ije1rt2 = new IJEMortality(dr2);
-            DeathRecord dr3 = ije1rt2.ToDeathRecord();
+            DeathRecord dr3 = ije1rt2.ToRecord();
             Assert.Equal("NY", dr3.DeathLocationAddress["addressState"]);
             Assert.Equal("YC", dr3.DeathLocationJurisdiction);
             Assert.Equal("000000000001", dr3.StateLocalIdentifier1);
@@ -105,7 +106,7 @@ namespace VRDR.Tests
             ije3.AGETYPE = "2";
             ije3.AGE_BYPASS = ValueSets.EditBypass01.Edit_Failed_Data_Queried_And_Verified;
             Assert.Equal(ValueSets.EditBypass01.Edit_Failed_Data_Queried_And_Verified, ije3.AGE_BYPASS);
-            DeathRecord dr4 = ije3.ToDeathRecord();
+            DeathRecord dr4 = ije3.ToRecord();
             Assert.Equal("NY", dr4.DeathLocationAddress["addressState"]);
             Assert.Equal("YC", dr4.DeathLocationJurisdiction);
             Assert.Equal("mo", dr4.AgeAtDeath["code"]);
@@ -214,7 +215,7 @@ namespace VRDR.Tests
         public void HandleUnknownBirthRecordId()
         {
             IJEMortality ije1 = new IJEMortality(File.ReadAllText(FixturePath("fixtures/ije/UnknownBirthRecordId.ije")), true);
-            DeathRecord dr1 = ije1.ToDeathRecord();
+            DeathRecord dr1 = ije1.ToRecord();
             Assert.Null(dr1.BirthRecordId);
             IJEMortality ije1rt = new IJEMortality(dr1);
             Assert.Equal("", ije1rt.BCNO);
@@ -226,7 +227,7 @@ namespace VRDR.Tests
             Assert.Equal("9999", ije1.DOB_YR);
             Assert.Equal("06", ije1.DOB_MO);
             Assert.Equal("02", ije1.DOB_DY);
-            DeathRecord dr1 = ije1.ToDeathRecord();
+            DeathRecord dr1 = ije1.ToRecord();
             Assert.Equal(-1, dr1.BirthYear);
             Assert.Equal(6, dr1.BirthMonth);
             Assert.Equal(2, dr1.BirthDay);
@@ -240,7 +241,7 @@ namespace VRDR.Tests
             Assert.Equal("9999", ije1.DOB_YR);
             Assert.Equal("99", ije1.DOB_MO);
             Assert.Equal("99", ije1.DOB_DY);
-            DeathRecord dr1 = ije1.ToDeathRecord();
+            DeathRecord dr1 = ije1.ToRecord();
             Assert.Equal(-1, dr1.BirthYear);
             Assert.Equal(-1, dr1.BirthMonth);
             Assert.Equal(-1, dr1.BirthDay);
@@ -254,7 +255,7 @@ namespace VRDR.Tests
             Assert.Equal("999", ije1.COD);
             Assert.Equal("999", ije1.COUNTYC);
 
-            DeathRecord dr1 = ije1.ToDeathRecord();
+            DeathRecord dr1 = ije1.ToRecord();
             Assert.Equal("999", dr1.DeathLocationAddress["addressCountyC"]);
             Assert.Equal("999", dr1.Residence["addressCountyC"]);
         }
@@ -266,7 +267,7 @@ namespace VRDR.Tests
             Assert.Equal("000", ije1.COD);
             Assert.Equal("000", ije1.COUNTYC);
 
-            DeathRecord dr1 = ije1.ToDeathRecord();
+            DeathRecord dr1 = ije1.ToRecord();
             Assert.Equal("0", dr1.DeathLocationAddress["addressCountyC"]); // no padding int the FHIR world
             Assert.Equal("0", dr1.Residence["addressCountyC"]);
         }
@@ -291,7 +292,7 @@ namespace VRDR.Tests
             IJEMortality ije = new IJEMortality();
             ije.SSN = "112223333";
             Assert.Equal("112223333", ije.SSN);
-            DeathRecord record = ije.ToDeathRecord();
+            DeathRecord record = ije.ToRecord();
             Assert.Equal("112223333", record.SSN);
         }
 
@@ -322,7 +323,7 @@ namespace VRDR.Tests
             IJEMortality ije1 = new IJEMortality();
             ije1.SSN = "11222    ";
             ije1.DSTATE = "MA";
-            DeathRecord record1 = ije1.ToDeathRecord();
+            DeathRecord record1 = ije1.ToRecord();
             ArgumentOutOfRangeException ex1 = Assert.Throws<ArgumentOutOfRangeException>(() => new IJEMortality(record1));
             Assert.Equal("Specified argument was out of the range of valid values. (Parameter 'Found 1 validation errors:\nError: FHIR field SSN contains string '11222' which is not the expected length (without dashes or spaces) for IJE field SSN of length 9')", ex1.Message);
             Assert.Equal("11222    ", ije1.SSN);
@@ -514,22 +515,22 @@ namespace VRDR.Tests
 
             ijem = new IJEMortality();
             ijem.TOD = "1239";
-            deathTime = ijem.ToDeathRecord().DeathTime;
+            deathTime = ijem.ToRecord().DeathTime;
             Assert.Matches("^\\d{2}:\\d{2}:\\d{2}$", deathTime);
 
             ijem = new IJEMortality();
             ijem.TOD = "0255";
-            deathTime = ijem.ToDeathRecord().DeathTime;
+            deathTime = ijem.ToRecord().DeathTime;
             Assert.Matches("^\\d{2}:\\d{2}:\\d{2}$", deathTime);
 
             ijem = new IJEMortality();
             ijem.TOD = "0299";
-            deathTime = ijem.ToDeathRecord().DeathTime;
+            deathTime = ijem.ToRecord().DeathTime;
             Assert.DoesNotMatch("^\\d{2}:\\d{2}:\\d{2}$", deathTime);
 
             ijem = new IJEMortality();
             ijem.TOD = "not a valid date";
-            deathTime = ijem.ToDeathRecord().DeathTime;
+            deathTime = ijem.ToRecord().DeathTime;
             Assert.DoesNotMatch("^\\d{2}:\\d{2}:\\d{2}$", deathTime);
         }
 

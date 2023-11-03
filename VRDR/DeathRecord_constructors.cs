@@ -12,6 +12,7 @@ using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Hl7.FhirPath;
 using Newtonsoft.Json;
+using VR;
 
 // DeathRecord_constructors.cs
 //     Contains constructors and associated methods for the DeathRecords class
@@ -22,7 +23,7 @@ namespace VRDR
     /// HL7 FHIR Vital Records Death Reporting Implementation Guide, as described at:
     /// http://hl7.org/fhir/us/vrdr and https://github.com/hl7/vrdr.
     /// </summary>
-    public partial class DeathRecord
+    public partial class DeathRecord : VitalRecord
     {
         /// <summary>Default constructor that creates a new, empty DeathRecord.</summary>
         public DeathRecord()
@@ -96,75 +97,7 @@ namespace VRDR
         /// <param name="record">represents a FHIR Death Record in either XML or JSON format.</param>
         /// <param name="permissive">if the parser should be permissive when parsing the given string</param>
         /// <exception cref="ArgumentException">Record is neither valid XML nor JSON.</exception>
-        public DeathRecord(string record, bool permissive = false)
-        {
-            ParserSettings parserSettings = new ParserSettings
-            {
-                AcceptUnknownMembers = permissive,
-                AllowUnrecognizedEnums = permissive,
-                PermissiveParsing = permissive
-            };
-            // XML?
-            Boolean maybeXML = record.TrimStart().StartsWith("<");
-            Boolean maybeJSON = record.TrimStart().StartsWith("{");
-            if (!String.IsNullOrEmpty(record) && (maybeXML || maybeJSON))
-            {
-                // Grab all errors found by visiting all nodes and report if not permissive
-                if (!permissive)
-                {
-                    List<string> entries = new List<string>();
-                    ISourceNode node = null;
-                    if (maybeXML)
-                    {
-                        node = FhirXmlNode.Parse(record, new FhirXmlParsingSettings { PermissiveParsing = permissive });
-                    }
-                    else
-                    {
-                        node = FhirJsonNode.Parse(record, "Bundle", new FhirJsonParsingSettings { PermissiveParsing = permissive });
-                    }
-                    foreach (Hl7.Fhir.Utility.ExceptionNotification problem in node.VisitAndCatch())
-                    {
-                        entries.Add(problem.Message);
-                    }
-                    if (entries.Count > 0)
-                    {
-                        throw new System.ArgumentException(String.Join("; ", entries).TrimEnd());
-                    }
-                }
-                // Try Parse
-                try
-                {
-                    if (maybeXML)
-                    {
-                        FhirXmlParser parser = new FhirXmlParser(parserSettings);
-                        Bundle = parser.Parse<Bundle>(record);
-                    }
-                    else
-                    {
-                        FhirJsonParser parser = new FhirJsonParser(parserSettings);
-                        Bundle = parser.Parse<Bundle>(record);
-                    }
-
-                    // Validate the partial dates.
-                    DeathRecord.ValidatePartialDates(Bundle);
-
-                    Navigator = Bundle.ToTypedElement();
-                }
-                catch (Exception e)
-                {
-                    throw new System.ArgumentException(e.Message);
-                }
-            }
-            // Fill out class instance references
-            if (Navigator != null)
-            {
-                RestoreReferences();
-            }
-            else
-            {
-                throw new System.ArgumentException("The given input does not appear to be a valid XML or JSON FHIR record.");
-            }
-        }
+        public DeathRecord(string record, bool permissive = false) : base(record, permissive){}
 
         /// <summary>Constructor that takes a FHIR Bundle that represents a FHIR Death Record.</summary>
         /// <param name="bundle">represents a FHIR Bundle.</param>
@@ -176,49 +109,6 @@ namespace VRDR
             RestoreReferences();
         }
 
-
-        /// <summary>Helper method to return a XML string representation of this Death Record.</summary>
-        /// <returns>a string representation of this Death Record in XML format</returns>
-        public string ToXML()
-        {
-            return Bundle.ToXml();
-        }
-
-        /// <summary>Helper method to return a XML string representation of this Death Record.</summary>
-        /// <returns>a string representation of this Death Record in XML format</returns>
-        public string ToXml()
-        {
-            return Bundle.ToXml();
-        }
-
-        /// <summary>Helper method to return a JSON string representation of this Death Record.</summary>
-        /// <returns>a string representation of this Death Record in JSON format</returns>
-        public string ToJSON()
-        {
-            return Bundle.ToJson();
-        }
-
-        /// <summary>Helper method to return a JSON string representation of this Death Record.</summary>
-        /// <returns>a string representation of this Death Record in JSON format</returns>
-        public string ToJson()
-        {
-            return Bundle.ToJson();
-        }
-
-        /// <summary>Helper method to return an ITypedElement of the record bundle.</summary>
-        /// <returns>an ITypedElement of the record bundle</returns>
-        public ITypedElement GetITypedElement()
-        {
-            return Navigator;
-        }
-
-        /// <summary>Helper method to return a the bundle.</summary>
-        /// <returns>a FHIR Bundle</returns>
-        public Bundle GetBundle()
-        {
-            return Bundle;
-        }
-
         /// <summary>
         /// Helper method to return the bundle that makes up a CauseOfDeathCodedContent bundle. This is actually
         /// the complete DeathRecord Bundle accessible via a method name that aligns with the other specific
@@ -228,14 +118,6 @@ namespace VRDR
         public Bundle GetDeathCertificateDocumentBundle()
         {
             return Bundle;
-        }
-
-        private void AddResourceToBundleIfPresent(Resource resource, Bundle bundle)
-        {
-            if (resource != null)
-            {
-                bundle.AddResourceEntry(resource, "urn:uuid:" + resource.Id);
-            }
         }
 
         /// <summary>Helper method to return the subset of this record that makes up a CauseOfDeathCodedContent bundle.</summary>
@@ -333,74 +215,8 @@ namespace VRDR
             return mortRosterBundle;
         }
 
-
-        /////////////////////////////////////////////////////////////////////////////////
-        //
-        // Class helper methods useful for building, searching through records.
-        //
-        /////////////////////////////////////////////////////////////////////////////////
-
-        /// <summary>Return a reference to the Composition object for unit testing.</summary>
-        public Composition GetComposition()
-        {
-            return Composition;
-        }
-
-        /// <summary>Add a reference to the Death Record Composition.</summary>
-        /// <param name="reference">a reference.</param>
-        /// <param name="code">the code for the section to add to.</param>
-        /// The sections are from : CodeSystems.DocumentSections
-        ///               DecedentDemographics
-        ///               DeathInvestigation
-        ///               DeathCertification
-        ///               DecedentDisposition
-        ///               CodedContent
-        private void AddReferenceToComposition(string reference, string code)
-        {
-            // In many of the createXXXXXX methods this gets called as a last step to add a reference to the new instance to the composition.
-            // The Composition is present only in the DeathCertificateDocument, and is absent in all of the other bundles.
-            // In lieu of putting conditional logic in all of the calling methods, added it here.
-            if (Composition == null)
-            {
-                return;
-            }
-
-            //Composition.Section.First().Entry.Add(new ResourceReference("urn:uuid:" + reference));
-            Composition.SectionComponent section = new Composition.SectionComponent();
-            string[] sections = new string[] { "DecedentDemographics", "DeathInvestigation", "DeathCertification", "DecedentDisposition", "CodedContent" };
-            if (sections.Any(code.Contains))
-            {
-                // Find the right section
-                foreach (var s in Composition.Section)
-                {
-                    if (s.Code != null && s.Code.Coding.Count > 0 && s.Code.Coding.First().Code == code)
-                    {
-                        section = s;
-                    }
-                }
-                if (section.Code == null)
-                {
-                    Dictionary<string, string> coding = new Dictionary<string, string>();
-                    coding["system"] = VRDR.CodeSystems.DocumentSections;
-                    coding["code"] = code;
-                    section.Code = DictToCodeableConcept(coding);
-                    Composition.Section.Add(section);
-                }
-                section.Entry.Add(new ResourceReference("urn:uuid:" + reference));
-            }
-        }
-
-        /// <summary>Remove a reference from the Death Record Composition.</summary>
-        /// <param name="reference">a reference.</param>
-        /// <param name="code">a code for the section to modify.</param>
-        private bool RemoveReferenceFromComposition(string reference, string code)
-        {
-            Composition.SectionComponent section = Composition.Section.Where(s => s.Code.Coding.First().Code == code).First();
-            return section.Entry.RemoveAll(entry => entry.Reference == reference) > 0;
-        }
-
         /// <summary>Restores class references from a newly parsed record.</summary>
-        private void RestoreReferences()
+        protected override void RestoreReferences()
         {
             // Depending on the type of bundle, some of this information may not be present, so check it in a null-safe way
             string profile = Bundle.Meta?.Profile?.FirstOrDefault();

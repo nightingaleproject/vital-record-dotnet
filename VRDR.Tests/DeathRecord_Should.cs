@@ -6,6 +6,7 @@ using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Xunit;
 using System.Linq;
+using VR;
 
 namespace VRDR.Tests
 {
@@ -142,7 +143,7 @@ namespace VRDR.Tests
         {
             DeathRecord first = DeathRecord1_XML;
             string firstDescription = first.ToDescription();
-            DeathRecord second = DeathRecord.FromDescription(firstDescription);
+            DeathRecord second = VitalRecord.FromDescription<DeathRecord>(firstDescription);
             Assert.Equal(first.Identifier, second.Identifier);
             Assert.Equal(first.GivenNames, second.GivenNames);
             Assert.Equal(first.AutopsyResultsAvailable, second.AutopsyResultsAvailable);
@@ -184,8 +185,8 @@ namespace VRDR.Tests
         {
             IJEMortality ijefromjson = new IJEMortality(DeathRecord1_XML);
             IJEMortality ijefromxml = new IJEMortality(DeathRecord1_JSON);
-            DeathRecord fromijefromjson = ijefromjson.ToDeathRecord();
-            DeathRecord fromijefromxml = ijefromjson.ToDeathRecord();
+            DeathRecord fromijefromjson = ijefromjson.ToRecord();
+            DeathRecord fromijefromxml = ijefromjson.ToRecord();
 
             Assert.Equal("YC", fromijefromjson.DeathLocationJurisdiction);
             Assert.Equal("YC", fromijefromxml.DeathLocationJurisdiction);
@@ -204,7 +205,7 @@ namespace VRDR.Tests
         {
             DeathRecord djson = new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathLocationType.json")));
             IJEMortality ijefromjson = new IJEMortality(djson);
-            DeathRecord fromijefromjson = ijefromjson.ToDeathRecord();
+            DeathRecord fromijefromjson = ijefromjson.ToRecord();
 
             Assert.NotEqual(fromijefromjson.DeathLocationTypeHelper, VRDR.ValueSets.PlaceOfDeath.Death_In_Hospice);
             Assert.Equal(fromijefromjson.DeathLocationTypeHelper, VRDR.ValueSets.PlaceOfDeath.Death_In_Home);
@@ -279,7 +280,7 @@ namespace VRDR.Tests
             DeathRecord d = new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/RaceEthnicityCaseRecord.json")));
             IJEMortality ije1 = new IJEMortality(d);
             IJEMortality ije2 = new IJEMortality(ije1.ToString(), true);
-            DeathRecord d2 = ije2.ToDeathRecord();
+            DeathRecord d2 = ije2.ToRecord();
 
             // Ethnicity tuple
             Assert.Equal("Y", d2.Ethnicity2Helper);
@@ -1032,7 +1033,7 @@ namespace VRDR.Tests
             SetterDeathRecord.FilingFormatHelper = ValueSets.FilingFormat.Electronic;
             Assert.Equal("electronic", SetterDeathRecord.FilingFormat["code"]);
             Assert.Equal("Electronic", SetterDeathRecord.FilingFormat["display"]);
-            Assert.Equal(VRDR.CodeSystems.FilingFormat, SetterDeathRecord.FilingFormat["system"]);
+            Assert.Equal(VR.CodeSystems.FilingFormat, SetterDeathRecord.FilingFormat["system"]);
         }
 
         [Fact]
@@ -1049,7 +1050,7 @@ namespace VRDR.Tests
             SetterDeathRecord.ReplaceStatusHelper = ValueSets.ReplaceStatus.Original_Record;
             Assert.Equal("original", SetterDeathRecord.ReplaceStatus["code"]);
             Assert.Equal("original record", SetterDeathRecord.ReplaceStatus["display"]);
-            Assert.Equal(VRDR.CodeSystems.ReplaceStatus, SetterDeathRecord.ReplaceStatus["system"]);
+            Assert.Equal(VR.CodeSystems.ReplaceStatus, SetterDeathRecord.ReplaceStatus["system"]);
         }
 
         [Fact]
@@ -1323,7 +1324,7 @@ namespace VRDR.Tests
             Assert.Equal("9999", ije1.DOB_YR);
             Assert.Equal("99", ije1.DOB_MO);
             Assert.Equal("24", ije1.DOB_DY);
-            DeathRecord dr1 = ije1.ToDeathRecord();
+            DeathRecord dr1 = ije1.ToRecord();
             Assert.Equal(-1, dr1.BirthYear);
             Assert.Equal(-1, dr1.BirthMonth);
             Assert.Equal(24, (int)dr1.BirthDay);
@@ -1421,7 +1422,7 @@ namespace VRDR.Tests
         {
             SetterDeathRecord.MaritalStatusHelper = ValueSets.MaritalStatus.Never_Married;
             Assert.Equal(ValueSets.MaritalStatus.Never_Married, SetterDeathRecord.MaritalStatus["code"]);
-            Assert.Equal(VRDR.CodeSystems.PH_MaritalStatus_HL7_2x, SetterDeathRecord.MaritalStatus["system"]);
+            Assert.Equal(VR.CodeSystems.PH_MaritalStatus_HL7_2x, SetterDeathRecord.MaritalStatus["system"]);
             Assert.Equal("Never Married", SetterDeathRecord.MaritalStatus["display"]);
         }
 
@@ -1429,10 +1430,10 @@ namespace VRDR.Tests
         public void Get_MaritalStatus()
         {
             Assert.Equal(ValueSets.MaritalStatus.Never_Married, DeathRecord1_JSON.MaritalStatus["code"]);
-            Assert.Equal(VRDR.CodeSystems.PH_MaritalStatus_HL7_2x, DeathRecord1_JSON.MaritalStatus["system"]);
+            Assert.Equal(VR.CodeSystems.PH_MaritalStatus_HL7_2x, DeathRecord1_JSON.MaritalStatus["system"]);
             Assert.Equal("Never Married", DeathRecord1_JSON.MaritalStatus["display"]);
             Assert.Equal(ValueSets.MaritalStatus.Never_Married, DeathRecord1_XML.MaritalStatus["code"]);
-            Assert.Equal(VRDR.CodeSystems.PH_MaritalStatus_HL7_2x, DeathRecord1_XML.MaritalStatus["system"]);
+            Assert.Equal(VR.CodeSystems.PH_MaritalStatus_HL7_2x, DeathRecord1_XML.MaritalStatus["system"]);
             Assert.Equal("Never Married", DeathRecord1_XML.MaritalStatus["display"]);
         }
 
@@ -1441,7 +1442,7 @@ namespace VRDR.Tests
         {
             SetterDeathRecord.MaritalStatusEditFlagHelper = ValueSets.EditBypass0124.Edit_Passed;
             Assert.Equal(ValueSets.EditBypass0124.Edit_Passed, SetterDeathRecord.MaritalStatusEditFlag["code"]);
-            Assert.Equal(VRDR.CodeSystems.BypassEditFlag, SetterDeathRecord.MaritalStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystems.BypassEditFlag, SetterDeathRecord.MaritalStatusEditFlag["system"]);
             Assert.Equal("Edit Passed", SetterDeathRecord.MaritalStatusEditFlag["display"]);
         }
 
@@ -1449,10 +1450,10 @@ namespace VRDR.Tests
         public void Get_MaritalStatusEditFlag()
         {
             Assert.Equal(ValueSets.EditBypass0124.Edit_Passed, DeathRecord1_JSON.MaritalStatusEditFlag["code"]);
-            Assert.Equal(VRDR.CodeSystems.BypassEditFlag, DeathRecord1_JSON.MaritalStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystems.BypassEditFlag, DeathRecord1_JSON.MaritalStatusEditFlag["system"]);
             Assert.Equal("Edit Passed", DeathRecord1_JSON.MaritalStatusEditFlag["display"]);
             Assert.Equal(ValueSets.EditBypass0124.Edit_Passed, DeathRecord1_XML.MaritalStatusEditFlag["code"]);
-            Assert.Equal(VRDR.CodeSystems.BypassEditFlag, DeathRecord1_XML.MaritalStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystems.BypassEditFlag, DeathRecord1_XML.MaritalStatusEditFlag["system"]);
             Assert.Equal("Edit Passed", DeathRecord1_XML.MaritalStatusEditFlag["display"]);
         }
 
@@ -1470,7 +1471,7 @@ namespace VRDR.Tests
             SetterDeathRecord.MaritalStatusEditFlagHelper = ValueSets.EditBypass0124.Edit_Passed;
 
             Assert.Equal(ValueSets.MaritalStatus.Never_Married, SetterDeathRecord.MaritalStatus["code"]);
-            Assert.Equal(VRDR.CodeSystems.PH_MaritalStatus_HL7_2x, SetterDeathRecord.MaritalStatus["system"]);
+            Assert.Equal(VR.CodeSystems.PH_MaritalStatus_HL7_2x, SetterDeathRecord.MaritalStatus["system"]);
             Assert.Equal("Never Married", SetterDeathRecord.MaritalStatus["display"]);
             Assert.Equal(ValueSets.EditBypass0124.Edit_Passed, SetterDeathRecord.MaritalStatusEditFlagHelper);
         }
@@ -1602,7 +1603,7 @@ namespace VRDR.Tests
         {
             SetterDeathRecord.SpouseAliveHelper = ValueSets.YesNoUnknownNotApplicable.Yes;
             Assert.Equal(ValueSets.YesNoUnknownNotApplicable.Yes, SetterDeathRecord.SpouseAlive["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo, SetterDeathRecord.SpouseAlive["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo, SetterDeathRecord.SpouseAlive["system"]);
             Assert.Equal("Yes", SetterDeathRecord.SpouseAlive["display"]);
         }
 
@@ -1610,10 +1611,10 @@ namespace VRDR.Tests
         public void Get_SpouseLiving()
         {
             Assert.Equal(ValueSets.YesNoUnknownNotApplicable.Yes, DeathRecord1_JSON.SpouseAlive["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo, DeathRecord1_JSON.SpouseAlive["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo, DeathRecord1_JSON.SpouseAlive["system"]);
             Assert.Equal("Yes", DeathRecord1_JSON.SpouseAlive["display"]);
             Assert.Equal(ValueSets.YesNoUnknownNotApplicable.Yes, DeathRecord1_XML.SpouseAlive["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo, DeathRecord1_XML.SpouseAlive["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo, DeathRecord1_XML.SpouseAlive["system"]);
             Assert.Equal("Yes", DeathRecord1_XML.SpouseAlive["display"]);
         }
 
@@ -1681,7 +1682,7 @@ namespace VRDR.Tests
         {
             SetterDeathRecord.EducationLevelHelper = VRDR.ValueSets.EducationLevel.Bachelors_Degree;
             Assert.Equal(VRDR.ValueSets.EducationLevel.Bachelors_Degree, SetterDeathRecord.EducationLevel["code"]);
-            Assert.Equal(VRDR.CodeSystems.DegreeLicenceAndCertificate, SetterDeathRecord.EducationLevel["system"]);
+            Assert.Equal(VR.CodeSystems.DegreeLicenceAndCertificate, SetterDeathRecord.EducationLevel["system"]);
             Assert.Equal("Bachelor's degree", SetterDeathRecord.EducationLevel["display"]);
             SetterDeathRecord.EducationLevelHelper = VRDR.ValueSets.EducationLevel.Associates_Or_Technical_Degree_Complete;
             Assert.Equal(VRDR.ValueSets.EducationLevel.Associates_Or_Technical_Degree_Complete, SetterDeathRecord.EducationLevelHelper);
@@ -1692,10 +1693,10 @@ namespace VRDR.Tests
         public void Get_EducationLevel()
         {
             Assert.Equal(VRDR.ValueSets.EducationLevel.Bachelors_Degree, DeathRecord1_JSON.EducationLevelHelper);
-            Assert.Equal(VRDR.CodeSystems.DegreeLicenceAndCertificate, DeathRecord1_JSON.EducationLevel["system"]);
+            Assert.Equal(VR.CodeSystems.DegreeLicenceAndCertificate, DeathRecord1_JSON.EducationLevel["system"]);
             Assert.Equal("Bachelor's Degree", DeathRecord1_JSON.EducationLevel["display"]);
             Assert.Equal(VRDR.ValueSets.EducationLevel.Bachelors_Degree, DeathRecord1_XML.EducationLevelHelper);
-            Assert.Equal(VRDR.CodeSystems.DegreeLicenceAndCertificate, DeathRecord1_XML.EducationLevel["system"]);
+            Assert.Equal(VR.CodeSystems.DegreeLicenceAndCertificate, DeathRecord1_XML.EducationLevel["system"]);
             Assert.Equal("Bachelor's Degree", DeathRecord1_XML.EducationLevel["display"]);
         }
 
@@ -1704,15 +1705,15 @@ namespace VRDR.Tests
         {
             Dictionary<string, string> elef = new Dictionary<string, string>();
             elef.Add("code", VRDR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified);
-            elef.Add("system", VRDR.CodeSystems.BypassEditFlag);
+            elef.Add("system", VR.CodeSystems.BypassEditFlag);
             elef.Add("display", "Edit Failed, Data Queried, and Verified");
             SetterDeathRecord.EducationLevelEditFlag = elef;
             Assert.Equal(VRDR.ValueSets.EditBypass01234.Edit_Failed_Data_Queried_And_Verified, SetterDeathRecord.EducationLevelEditFlag["code"]);
-            Assert.Equal(VRDR.CodeSystems.BypassEditFlag, SetterDeathRecord.EducationLevelEditFlag["system"]);
+            Assert.Equal(VR.CodeSystems.BypassEditFlag, SetterDeathRecord.EducationLevelEditFlag["system"]);
             Assert.Equal("Edit Failed, Data Queried, and Verified", SetterDeathRecord.EducationLevelEditFlag["display"]);
             SetterDeathRecord.EducationLevelEditFlagHelper = VRDR.ValueSets.EditBypass01234.Edit_Passed;
             Assert.Equal(VRDR.ValueSets.EditBypass01234.Edit_Passed, SetterDeathRecord.EducationLevelEditFlagHelper);
-            Assert.Equal(VRDR.CodeSystems.BypassEditFlag, SetterDeathRecord.EducationLevelEditFlag["system"]);
+            Assert.Equal(VR.CodeSystems.BypassEditFlag, SetterDeathRecord.EducationLevelEditFlag["system"]);
             Assert.Equal("Edit Passed", SetterDeathRecord.EducationLevelEditFlag["display"]);
         }
 
@@ -1720,10 +1721,10 @@ namespace VRDR.Tests
         public void Get_EducationLevelEditFlag()
         {
             Assert.Equal(VRDR.ValueSets.EditBypass01234.Edit_Passed, DeathRecord1_JSON.EducationLevelEditFlagHelper);
-            Assert.Equal(VRDR.CodeSystems.BypassEditFlag, DeathRecord1_JSON.EducationLevelEditFlag["system"]);
+            Assert.Equal(VR.CodeSystems.BypassEditFlag, DeathRecord1_JSON.EducationLevelEditFlag["system"]);
             Assert.Equal("Edit Passed", DeathRecord1_JSON.EducationLevelEditFlag["display"]);
             Assert.Equal(VRDR.ValueSets.EditBypass01234.Edit_Passed, DeathRecord1_XML.EducationLevelEditFlagHelper);
-            Assert.Equal(VRDR.CodeSystems.BypassEditFlag, DeathRecord1_XML.EducationLevelEditFlag["system"]);
+            Assert.Equal(VR.CodeSystems.BypassEditFlag, DeathRecord1_XML.EducationLevelEditFlag["system"]);
             Assert.Equal("Edit Passed", DeathRecord1_XML.EducationLevelEditFlag["display"]);
         }
 
@@ -1732,7 +1733,7 @@ namespace VRDR.Tests
         {
             SetterDeathRecord.ActivityAtDeathHelper = VRDR.ValueSets.ActivityAtTimeOfDeath.While_Resting_Sleeping_Eating_Or_Engaging_In_Other_Vital_Activities;
             Assert.Equal(VRDR.ValueSets.ActivityAtTimeOfDeath.While_Resting_Sleeping_Eating_Or_Engaging_In_Other_Vital_Activities, SetterDeathRecord.ActivityAtDeath["code"]);
-            Assert.Equal(VRDR.CodeSystems.ActivityAtTimeOfDeath, SetterDeathRecord.ActivityAtDeath["system"]);
+            Assert.Equal(VR.CodeSystems.ActivityAtTimeOfDeath, SetterDeathRecord.ActivityAtDeath["system"]);
             Assert.Equal("While resting, sleeping, eating, or engaging in other vital activities", SetterDeathRecord.ActivityAtDeath["display"]);
             SetterDeathRecord.ActivityAtDeathHelper = VRDR.ValueSets.ActivityAtTimeOfDeath.While_Resting_Sleeping_Eating_Or_Engaging_In_Other_Vital_Activities;
             Assert.Equal(VRDR.ValueSets.ActivityAtTimeOfDeath.While_Resting_Sleeping_Eating_Or_Engaging_In_Other_Vital_Activities, SetterDeathRecord.ActivityAtDeathHelper);
@@ -1884,7 +1885,7 @@ namespace VRDR.Tests
             Assert.Equal("242123", dr.BirthRecordId);
             IJEMortality ije1 = new IJEMortality(dr);
             Assert.Equal("242123", ije1.BCNO);
-            DeathRecord dr2 = ije1.ToDeathRecord();
+            DeathRecord dr2 = ije1.ToRecord();
             Assert.Equal("242123", dr2.BirthRecordId);
         }
         [Fact]
@@ -1899,7 +1900,7 @@ namespace VRDR.Tests
             DeathRecord dr = new DeathRecord(File.ReadAllText(FixturePath("fixtures/json/DeathRecordBirthRecordDataAbsent.json")));
             IJEMortality ije1 = new IJEMortality(dr);
             Assert.Equal("", ije1.BCNO);
-            DeathRecord dr2 = ije1.ToDeathRecord();
+            DeathRecord dr2 = ije1.ToRecord();
             Assert.Null(dr.BirthRecordId);
         }
         [Theory]
@@ -2238,7 +2239,7 @@ namespace VRDR.Tests
             Dictionary<string, string> ddm = new Dictionary<string, string>();
             SetterDeathRecord.DecedentDispositionMethodHelper = VRDR.ValueSets.MethodOfDisposition.Burial;
             Assert.Equal(VRDR.ValueSets.MethodOfDisposition.Burial, SetterDeathRecord.DecedentDispositionMethodHelper);
-            Assert.Equal(VRDR.CodeSystems.SCT, SetterDeathRecord.DecedentDispositionMethod["system"]);
+            Assert.Equal(VR.CodeSystems.SCT, SetterDeathRecord.DecedentDispositionMethod["system"]);
             Assert.Equal("Burial", SetterDeathRecord.DecedentDispositionMethod["display"]);
         }
 
@@ -2258,21 +2259,21 @@ namespace VRDR.Tests
         {
             Dictionary<string, string> api = new Dictionary<string, string>();
             api.Add("code", "Y");
-            api.Add("system", VRDR.CodeSystems.YesNo);
+            api.Add("system", VR.CodeSystems.YesNo);
             api.Add("display", "Yes");
             SetterDeathRecord.AutopsyPerformedIndicator = api;
             Assert.Equal("Y", SetterDeathRecord.AutopsyPerformedIndicator["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo, SetterDeathRecord.AutopsyPerformedIndicator["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo, SetterDeathRecord.AutopsyPerformedIndicator["system"]);
             Assert.Equal("Yes", SetterDeathRecord.AutopsyPerformedIndicator["display"]);
             Assert.Equal("Y", SetterDeathRecord.AutopsyPerformedIndicatorHelper);
             SetterDeathRecord.AutopsyPerformedIndicatorHelper = "N";
             Assert.Equal("N", SetterDeathRecord.AutopsyPerformedIndicator["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo, SetterDeathRecord.AutopsyPerformedIndicator["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo, SetterDeathRecord.AutopsyPerformedIndicator["system"]);
             Assert.Equal("No", SetterDeathRecord.AutopsyPerformedIndicator["display"]);
             Assert.Equal("N", SetterDeathRecord.AutopsyPerformedIndicatorHelper);
             SetterDeathRecord.AutopsyPerformedIndicatorHelper = "UNK";
             Assert.Equal("UNK", SetterDeathRecord.AutopsyPerformedIndicator["code"]);
-            Assert.Equal(VRDR.CodeSystems.NullFlavor_HL7_V3, SetterDeathRecord.AutopsyPerformedIndicator["system"]);
+            Assert.Equal(VR.CodeSystems.NullFlavor_HL7_V3, SetterDeathRecord.AutopsyPerformedIndicator["system"]);
             Assert.Equal("unknown", SetterDeathRecord.AutopsyPerformedIndicator["display"]);
             Assert.Equal("UNK", SetterDeathRecord.AutopsyPerformedIndicatorHelper);
         }
@@ -2282,11 +2283,11 @@ namespace VRDR.Tests
         {
             Assert.Equal(ValueSets.YesNoUnknown.Yes, DeathCertificateDocument2_JSON.AutopsyPerformedIndicatorHelper);
             Assert.Equal("Y", DeathRecord1_JSON.AutopsyPerformedIndicator["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo, DeathRecord1_JSON.AutopsyPerformedIndicator["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo, DeathRecord1_JSON.AutopsyPerformedIndicator["system"]);
             Assert.Equal("Yes", DeathRecord1_JSON.AutopsyPerformedIndicator["display"]);
             Assert.Equal("Y", DeathRecord1_JSON.AutopsyPerformedIndicatorHelper);
             Assert.Equal("Y", DeathRecord1_XML.AutopsyPerformedIndicator["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo, DeathRecord1_XML.AutopsyPerformedIndicator["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo, DeathRecord1_XML.AutopsyPerformedIndicator["system"]);
             Assert.Equal("Yes", DeathRecord1_XML.AutopsyPerformedIndicator["display"]);
             Assert.Equal("Y", DeathRecord1_XML.AutopsyPerformedIndicatorHelper);
         }
@@ -2300,7 +2301,7 @@ namespace VRDR.Tests
             Assert.Equal("N", SetterDeathRecord.AutopsyResultsAvailableHelper);
             SetterDeathRecord.AutopsyResultsAvailableHelper = "NA";
             Assert.Equal("NA", SetterDeathRecord.AutopsyResultsAvailable["code"]);
-            Assert.Equal(VRDR.CodeSystems.NullFlavor_HL7_V3, SetterDeathRecord.AutopsyResultsAvailable["system"]);
+            Assert.Equal(VR.CodeSystems.NullFlavor_HL7_V3, SetterDeathRecord.AutopsyResultsAvailable["system"]);
             Assert.Equal("not applicable", SetterDeathRecord.AutopsyResultsAvailable["display"]);
             Assert.Equal("NA", SetterDeathRecord.AutopsyResultsAvailableHelper);
         }
@@ -2310,11 +2311,11 @@ namespace VRDR.Tests
         {
             Assert.Equal(ValueSets.YesNoUnknown.Yes, DeathCertificateDocument2_JSON.AutopsyResultsAvailableHelper);
             Assert.Equal("Y", DeathRecord1_JSON.AutopsyResultsAvailable["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo, DeathRecord1_JSON.AutopsyResultsAvailable["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo, DeathRecord1_JSON.AutopsyResultsAvailable["system"]);
             Assert.Equal("Yes", DeathRecord1_JSON.AutopsyResultsAvailable["display"]);
             Assert.Equal("Y", DeathRecord1_JSON.AutopsyResultsAvailableHelper);
             Assert.Equal("Y", DeathRecord1_XML.AutopsyResultsAvailable["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo, DeathRecord1_XML.AutopsyResultsAvailable["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo, DeathRecord1_XML.AutopsyResultsAvailable["system"]);
             Assert.Equal("Yes", DeathRecord1_XML.AutopsyResultsAvailable["display"]);
             Assert.Equal("Y", DeathRecord1_XML.AutopsyResultsAvailableHelper);
         }
@@ -2474,7 +2475,7 @@ namespace VRDR.Tests
             IJEMortality ije = new IJEMortality(dr);
             Assert.Equal("999", ije.AGE);
             Assert.Equal("9", ije.AGETYPE);
-            DeathRecord dr2 = ije.ToDeathRecord();
+            DeathRecord dr2 = ije.ToRecord();
             Assert.Equal("", dr2.AgeAtDeath["code"]);
             Assert.Equal("", dr2.AgeAtDeath["value"]);
         }
@@ -2515,7 +2516,7 @@ namespace VRDR.Tests
             Assert.Equal("999", ije.AGE);
             Assert.Equal("9", ije.AGETYPE);
             Assert.Equal("0", ije.AGE_BYPASS);
-            DeathRecord dr2 = ije.ToDeathRecord();
+            DeathRecord dr2 = ije.ToRecord();
             Assert.Equal(CodeSystems.BypassEditFlag, dr2.AgeAtDeathEditFlag["system"]);
             Assert.Equal("0", dr2.AgeAtDeathEditFlag["code"]);
             Assert.Equal("Edit Passed", dr2.AgeAtDeathEditFlag["display"]);
@@ -2526,11 +2527,11 @@ namespace VRDR.Tests
         {
             Dictionary<string, string> ps = new Dictionary<string, string>();
             ps.Add("code", "1");
-            ps.Add("system", VRDR.CodeSystems.PregnancyStatus);
+            ps.Add("system", VR.CodeSystems.PregnancyStatus);
             ps.Add("display", "Not pregnant within past year");
             SetterDeathRecord.PregnancyStatus = ps;
             Assert.Equal("1", SetterDeathRecord.PregnancyStatus["code"]);
-            Assert.Equal(VRDR.CodeSystems.PregnancyStatus, SetterDeathRecord.PregnancyStatus["system"]);
+            Assert.Equal(VR.CodeSystems.PregnancyStatus, SetterDeathRecord.PregnancyStatus["system"]);
             Assert.Equal("Not pregnant within past year", SetterDeathRecord.PregnancyStatus["display"]);
         }
 
@@ -2538,11 +2539,11 @@ namespace VRDR.Tests
         public void Get_PregnancyStatus()
         {
             Assert.Equal("1", DeathRecord1_JSON.PregnancyStatus["code"]);
-            Assert.Equal(VRDR.CodeSystems.PregnancyStatus, DeathRecord1_JSON.PregnancyStatus["system"]);
+            Assert.Equal(VR.CodeSystems.PregnancyStatus, DeathRecord1_JSON.PregnancyStatus["system"]);
             Assert.Equal("Not pregnant within past year", DeathRecord1_JSON.PregnancyStatus["display"]);
             Assert.Equal(ValueSets.PregnancyStatus.Pregnant_At_Time_Of_Death, DeathCertificateDocument2_JSON.PregnancyStatusHelper);
             Assert.Equal("1", DeathRecord1_XML.PregnancyStatus["code"]);
-            Assert.Equal(VRDR.CodeSystems.PregnancyStatus, DeathRecord1_XML.PregnancyStatus["system"]);
+            Assert.Equal(VR.CodeSystems.PregnancyStatus, DeathRecord1_XML.PregnancyStatus["system"]);
             Assert.Equal("Not pregnant within past year", DeathRecord1_XML.PregnancyStatus["display"]);
         }
 
@@ -2551,15 +2552,15 @@ namespace VRDR.Tests
         {
             Dictionary<string, string> elef = new Dictionary<string, string>();
             elef.Add("code", VRDR.ValueSets.EditBypass012.Edit_Failed_Data_Queried_And_Verified);
-            elef.Add("system", VRDR.CodeSystems.BypassEditFlag);
+            elef.Add("system", VR.CodeSystems.BypassEditFlag);
             elef.Add("display", "Edit Failed Data Queried And Verified");
             SetterDeathRecord.PregnancyStatusEditFlag = elef;
             Assert.Equal(VRDR.ValueSets.EditBypass012.Edit_Failed_Data_Queried_And_Verified, SetterDeathRecord.PregnancyStatusEditFlag["code"]);
-            Assert.Equal(VRDR.CodeSystems.BypassEditFlag, SetterDeathRecord.PregnancyStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystems.BypassEditFlag, SetterDeathRecord.PregnancyStatusEditFlag["system"]);
             Assert.Equal("Edit Failed Data Queried And Verified", SetterDeathRecord.PregnancyStatusEditFlag["display"]);
             SetterDeathRecord.PregnancyStatusEditFlagHelper = VRDR.ValueSets.EditBypass012.Edit_Passed;
             Assert.Equal(VRDR.ValueSets.EditBypass012.Edit_Passed, SetterDeathRecord.PregnancyStatusEditFlagHelper);
-            Assert.Equal(VRDR.CodeSystems.BypassEditFlag, SetterDeathRecord.PregnancyStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystems.BypassEditFlag, SetterDeathRecord.PregnancyStatusEditFlag["system"]);
             Assert.Equal("Edit Passed", SetterDeathRecord.PregnancyStatusEditFlag["display"]);
         }
 
@@ -2568,10 +2569,10 @@ namespace VRDR.Tests
         {
             Assert.Equal(VRDR.ValueSets.EditBypass012.Edit_Failed_Data_Queried_But_Not_Verified, DeathCertificateDocument2_JSON.PregnancyStatusEditFlagHelper);
             Assert.Equal(VRDR.ValueSets.EditBypass012.Edit_Passed, DeathRecord1_JSON.PregnancyStatusEditFlagHelper);
-            Assert.Equal(VRDR.CodeSystems.BypassEditFlag, DeathRecord1_JSON.PregnancyStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystems.BypassEditFlag, DeathRecord1_JSON.PregnancyStatusEditFlag["system"]);
             Assert.Equal("Edit Passed", DeathRecord1_JSON.PregnancyStatusEditFlag["display"]);
             Assert.Equal(VRDR.ValueSets.EditBypass012.Edit_Passed, DeathRecord1_XML.PregnancyStatusEditFlagHelper);
-            Assert.Equal(VRDR.CodeSystems.BypassEditFlag, DeathRecord1_XML.PregnancyStatusEditFlag["system"]);
+            Assert.Equal(VR.CodeSystems.BypassEditFlag, DeathRecord1_XML.PregnancyStatusEditFlag["system"]);
             Assert.Equal("Edit Passed", DeathRecord1_XML.PregnancyStatusEditFlag["display"]);
         }
 
@@ -2605,7 +2606,7 @@ namespace VRDR.Tests
             Assert.Equal("PA", ije1.TRANSPRT);
             ije1.TRANSPRT = "PAP";
             Assert.Equal("PAP", ije1.TRANSPRT);
-            DeathRecord d = ije1.ToDeathRecord();
+            DeathRecord d = ije1.ToRecord();
             IJEMortality ije2 = new IJEMortality(d);
             Assert.Equal("PAP", ije2.TRANSPRT);
             SetterDeathRecord.TransportationRoleHelper = "Hover Board Rider";
@@ -2633,21 +2634,21 @@ namespace VRDR.Tests
         {
             Dictionary<string, string> ec = new Dictionary<string, string>();
             ec.Add("code", "Y");
-            ec.Add("system", VRDR.CodeSystems.YesNo);
+            ec.Add("system", VR.CodeSystems.YesNo);
             ec.Add("display", "Yes");
             SetterDeathRecord.ExaminerContacted = ec;
             Assert.Equal("Y", SetterDeathRecord.ExaminerContacted["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo, SetterDeathRecord.ExaminerContacted["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo, SetterDeathRecord.ExaminerContacted["system"]);
             Assert.Equal("Yes", SetterDeathRecord.ExaminerContacted["display"]);
             Assert.Equal("Y", SetterDeathRecord.ExaminerContactedHelper);
             SetterDeathRecord.ExaminerContactedHelper = "N";
             Assert.Equal("N", SetterDeathRecord.ExaminerContacted["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo, SetterDeathRecord.ExaminerContacted["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo, SetterDeathRecord.ExaminerContacted["system"]);
             Assert.Equal("No", SetterDeathRecord.ExaminerContacted["display"]);
             Assert.Equal("N", SetterDeathRecord.ExaminerContactedHelper);
             SetterDeathRecord.ExaminerContactedHelper = "UNK";
             Assert.Equal("UNK", SetterDeathRecord.ExaminerContacted["code"]);
-            Assert.Equal(VRDR.CodeSystems.NullFlavor_HL7_V3, SetterDeathRecord.ExaminerContacted["system"]);
+            Assert.Equal(VR.CodeSystems.NullFlavor_HL7_V3, SetterDeathRecord.ExaminerContacted["system"]);
             Assert.Equal("unknown", SetterDeathRecord.ExaminerContacted["display"]);
             Assert.Equal("UNK", SetterDeathRecord.ExaminerContactedHelper);
         }
@@ -2656,12 +2657,12 @@ namespace VRDR.Tests
         public void Get_ExaminerContacted()
         {
             Assert.Equal("N", DeathRecord1_JSON.ExaminerContacted["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo_0136HL7_V2, DeathRecord1_JSON.ExaminerContacted["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo_0136HL7_V2, DeathRecord1_JSON.ExaminerContacted["system"]);
             Assert.Equal("No", DeathRecord1_JSON.ExaminerContacted["display"]);
             Assert.Equal("N", DeathRecord1_JSON.ExaminerContactedHelper);
             Assert.Equal("Y", DeathCertificateDocument2_JSON.ExaminerContactedHelper);
             Assert.Equal("N", DeathRecord1_XML.ExaminerContacted["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo_0136HL7_V2, DeathRecord1_XML.ExaminerContacted["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo_0136HL7_V2, DeathRecord1_XML.ExaminerContacted["system"]);
             Assert.Equal("No", DeathRecord1_XML.ExaminerContacted["display"]);
             Assert.Equal("N", DeathRecord1_XML.ExaminerContactedHelper);
         }
@@ -2831,7 +2832,7 @@ namespace VRDR.Tests
             Assert.Equal("2018", ije1.DOI_YR);
             Assert.Equal("02", ije1.DOI_MO);
             Assert.Equal("19", ije1.DOI_DY);
-            DeathRecord dr2 = ije1.ToDeathRecord();
+            DeathRecord dr2 = ije1.ToRecord();
             Assert.Equal("2018-02-19T16:48:06", dr2.InjuryDate);
             Assert.Equal(2018, (int)dr2.InjuryYear);
             Assert.Equal(02, (int)dr2.InjuryMonth);
@@ -2843,21 +2844,21 @@ namespace VRDR.Tests
         {
             Dictionary<string, string> iaw = new Dictionary<string, string>();
             iaw.Add("code", "N");
-            iaw.Add("system", VRDR.CodeSystems.YesNo);
+            iaw.Add("system", VR.CodeSystems.YesNo);
             iaw.Add("display", "No");
             SetterDeathRecord.InjuryAtWork = iaw;
             Assert.Equal("N", SetterDeathRecord.InjuryAtWork["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo, SetterDeathRecord.InjuryAtWork["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo, SetterDeathRecord.InjuryAtWork["system"]);
             Assert.Equal("No", SetterDeathRecord.InjuryAtWork["display"]);
             Assert.Equal("N", SetterDeathRecord.InjuryAtWorkHelper);
             SetterDeathRecord.InjuryAtWorkHelper = "Y";
             Assert.Equal("Y", SetterDeathRecord.InjuryAtWork["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo, SetterDeathRecord.InjuryAtWork["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo, SetterDeathRecord.InjuryAtWork["system"]);
             Assert.Equal("Yes", SetterDeathRecord.InjuryAtWork["display"]);
             Assert.Equal("Y", SetterDeathRecord.InjuryAtWorkHelper);
             SetterDeathRecord.InjuryAtWorkHelper = "NA";
             Assert.Equal("NA", SetterDeathRecord.InjuryAtWork["code"]);
-            Assert.Equal(VRDR.CodeSystems.NullFlavor_HL7_V3, SetterDeathRecord.InjuryAtWork["system"]);
+            Assert.Equal(VR.CodeSystems.NullFlavor_HL7_V3, SetterDeathRecord.InjuryAtWork["system"]);
             Assert.Equal("not applicable", SetterDeathRecord.InjuryAtWork["display"]);
             Assert.Equal("NA", SetterDeathRecord.InjuryAtWorkHelper);
         }
@@ -2866,12 +2867,12 @@ namespace VRDR.Tests
         public void Get_InjuryAtWork()
         {
             Assert.Equal("N", DeathRecord1_JSON.InjuryAtWork["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo_0136HL7_V2, DeathRecord1_JSON.InjuryAtWork["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo_0136HL7_V2, DeathRecord1_JSON.InjuryAtWork["system"]);
             Assert.Equal("No", DeathRecord1_JSON.InjuryAtWork["display"]);
             Assert.Equal("N", DeathRecord1_JSON.InjuryAtWorkHelper);
             Assert.Equal(VRDR.ValueSets.YesNoUnknown.No, DeathCertificateDocument2_JSON.InjuryAtWorkHelper);
             Assert.Equal("N", DeathRecord1_XML.InjuryAtWork["code"]);
-            Assert.Equal(VRDR.CodeSystems.YesNo_0136HL7_V2, DeathRecord1_XML.InjuryAtWork["system"]);
+            Assert.Equal(VR.CodeSystems.YesNo_0136HL7_V2, DeathRecord1_XML.InjuryAtWork["system"]);
             Assert.Equal("No", DeathRecord1_XML.InjuryAtWork["display"]);
             Assert.Equal("N", DeathRecord1_XML.InjuryAtWorkHelper);
         }
@@ -3053,7 +3054,7 @@ namespace VRDR.Tests
             Assert.Equal("2019", ije1.DOD_YR);
             Assert.Equal("02", ije1.DOD_MO);
             Assert.Equal("19", ije1.DOD_DY);
-            DeathRecord dr2 = ije1.ToDeathRecord();
+            DeathRecord dr2 = ije1.ToRecord();
             Assert.Equal("2019-02-19T16:48:06", dr2.DateOfDeath);
             Assert.Equal(2019, (int)dr2.DeathYear);
             Assert.Equal(02, (int)dr2.DeathMonth);
@@ -3073,7 +3074,7 @@ namespace VRDR.Tests
             Assert.Equal("05", ije1.DOD_MO);
             Assert.Equal("99", ije1.DOD_DY);
             Assert.Equal("1000", ije1.TOD);
-            DeathRecord dr2 = ije1.ToDeathRecord();
+            DeathRecord dr2 = ije1.ToRecord();
             Assert.Equal(2021, dr2.DeathYear);
             Assert.Equal(5, dr2.DeathMonth);
             Assert.Equal(-1, dr2.DeathDay);
@@ -3171,7 +3172,7 @@ namespace VRDR.Tests
             IJEMortality ije1 = new IJEMortality(DeathRecord1_JSON);
             Assert.Equal("02202018", ije1.PPDATESIGNED);
             Assert.Equal("1648", ije1.PPTIME);
-            DeathRecord dr2 = ije1.ToDeathRecord();
+            DeathRecord dr2 = ije1.ToRecord();
             Assert.Equal("2018-02-20T16:48:06", dr2.DateOfDeathPronouncement);
             Assert.Equal(2018, (int)dr2.DateOfDeathPronouncementYear);
             Assert.Equal(02, (int)dr2.DateOfDeathPronouncementMonth);
@@ -3187,14 +3188,14 @@ namespace VRDR.Tests
             Assert.Equal("        ", ije1.PPDATESIGNED);
             Assert.Equal("    ", ije1.PPTIME);
             ije1.PPTIME = "1648";
-            DeathRecord dr2 = ije1.ToDeathRecord();
+            DeathRecord dr2 = ije1.ToRecord();
             Assert.Equal("16:48:00", dr2.DateOfDeathPronouncement);
             Assert.Null(dr2.DateOfDeathPronouncementYear);
             Assert.Null(dr2.DateOfDeathPronouncementMonth);
             Assert.Null(dr2.DateOfDeathPronouncementDay);
             Assert.Equal("16:48:00", dr2.DateOfDeathPronouncementTime);
             ije1.PPDATESIGNED = "02202018";
-            DeathRecord dr3 = ije1.ToDeathRecord();
+            DeathRecord dr3 = ije1.ToRecord();
             Assert.Equal("2018-02-20T16:48:00", dr3.DateOfDeathPronouncement);
             Assert.Equal(2018, (int)dr3.DateOfDeathPronouncementYear);
             Assert.Equal(02, (int)dr3.DateOfDeathPronouncementMonth);
@@ -3212,7 +3213,7 @@ namespace VRDR.Tests
             IJEMortality ije1 = new IJEMortality(SetterDeathRecord, false);
             Assert.Equal("05102021", ije1.PPDATESIGNED);
             Assert.Equal("0000", ije1.PPTIME); // null is converted to time 0000 as a fhir time
-            DeathRecord dr2 = ije1.ToDeathRecord();
+            DeathRecord dr2 = ije1.ToRecord();
             Assert.Equal(2021, dr2.DateOfDeathPronouncementYear);
             Assert.Equal(5, dr2.DateOfDeathPronouncementMonth);
             Assert.Equal(10, dr2.DateOfDeathPronouncementDay);
@@ -3226,7 +3227,7 @@ namespace VRDR.Tests
             IJEMortality ije1 = new IJEMortality(SetterDeathRecord, false);
             Assert.Equal("        ", ije1.PPDATESIGNED);
             Assert.Equal("1000", ije1.PPTIME);
-            DeathRecord dr2 = ije1.ToDeathRecord();
+            DeathRecord dr2 = ije1.ToRecord();
             Assert.Null(dr2.DateOfDeathPronouncementYear);
             Assert.Null(dr2.DateOfDeathPronouncementMonth);
             Assert.Null(dr2.DateOfDeathPronouncementDay);
@@ -3294,7 +3295,7 @@ namespace VRDR.Tests
             Assert.Equal("2017", ije1.SUR_YR);
             Assert.Equal("03", ije1.SUR_MO);
             Assert.Equal("18", ije1.SUR_DY);
-            DeathRecord dr2 = ije1.ToDeathRecord();
+            DeathRecord dr2 = ije1.ToRecord();
             Assert.Equal("2017-03-18", dr2.SurgeryDate);
             Assert.Equal(2017, (int)dr2.SurgeryYear);
             Assert.Equal(03, (int)dr2.SurgeryMonth);
@@ -3330,7 +3331,7 @@ namespace VRDR.Tests
             Assert.Equal("2021", ije1.R_YR);
             Assert.Equal("12", ije1.R_MO);
             Assert.Equal("12", ije1.R_DY);
-            DeathRecord dr2 = ije1.ToDeathRecord();
+            DeathRecord dr2 = ije1.ToRecord();
             Assert.Equal("2021-12-12", dr2.ReceiptDate);
             Assert.Equal(2021, (int)dr2.ReceiptYear);
             Assert.Equal(12, (int)dr2.ReceiptMonth);
@@ -3712,7 +3713,7 @@ namespace VRDR.Tests
             Assert.Equal("DDDD", ije.CERTL);
             ije.TRANSPRT = "Hover Board Rider";
             ije.INACT = "9";
-            DeathRecord record = ije.ToDeathRecord();
+            DeathRecord record = ije.ToRecord();
             DeathRecord record1 = new DeathRecord(record.GetCauseOfDeathCodedContentBundle());
             IJEMortality ije2 = new IJEMortality(record);
             Assert.Equal("2021", ije2.DOD_YR);
@@ -3752,7 +3753,7 @@ namespace VRDR.Tests
             ije.RACE23 = "Hgrtcha";
 
             // convert to a DeathRecord and check race literals
-            var record = ije.ToDeathRecord();
+            var record = ije.ToRecord();
             var race = record.Race.ToList().ToDictionary(x => x.Item1, x => x.Item2);
             Assert.Equal(2021, record.DeathYear);
             Assert.Equal("MA", record.DeathLocationJurisdiction);
@@ -4032,9 +4033,13 @@ namespace VRDR.Tests
                     {
                         Assert.Equal(value, "unknown");
                     }
-                    else
+                    else if(property.Name == "DeathProperty")
                     {
-                        Assert.Null(value);
+                        Assert.Equal(value, "DeathRecordPropertyValue");
+                    } 
+                    else 
+                    {
+                      Assert.Null(value);
                     }
                 }
             }
@@ -4178,25 +4183,25 @@ namespace VRDR.Tests
             ije.CERTL = "DDDD";
             ije.TRANSPRT = "Hover Board Rider";
             ije.INACT = "9";
-            DeathRecord record = ije.ToDeathRecord();
+            DeathRecord record = ije.ToRecord();
             IJEMortality ije2 = new IJEMortality(record);
             Assert.Equal("Y", record.AutopsyResultsAvailableHelper);
             Assert.Equal("Y", ije2.AUTOPF);
 
             ije.AUTOPF = "N";
-            record = ije.ToDeathRecord();
+            record = ije.ToRecord();
             ije2 = new IJEMortality(record);
             Assert.Equal("N", record.AutopsyResultsAvailableHelper);
             Assert.Equal("N", ije2.AUTOPF);
 
             ije.AUTOPF = "U";
-            record = ije.ToDeathRecord();
+            record = ije.ToRecord();
             ije2 = new IJEMortality(record);
             Assert.Equal("UNK", record.AutopsyResultsAvailableHelper);
             Assert.Equal("U", ije2.AUTOPF);
 
             ije.AUTOPF = "X";
-            record = ije.ToDeathRecord();
+            record = ije.ToRecord();
             ije2 = new IJEMortality(record);
             Assert.Equal("NA", record.AutopsyResultsAvailableHelper);
             Assert.Equal("X", ije2.AUTOPF);

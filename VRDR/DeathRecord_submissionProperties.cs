@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Hl7.Fhir.Model;
+using VR;
 
 // DeathRecord_submissionProperties.cs
 //    These fields are used primarily for submitting death records to NCHS.  Some are also used in response messages from NCHS to EDRS corresponding to TRX and MRE content.

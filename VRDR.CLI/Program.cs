@@ -16,6 +16,7 @@ using Hl7.FhirPath;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VRDR;
+using VR;
 
 namespace VRDR.CLI
 {
@@ -503,14 +504,14 @@ namespace VRDR.CLI
             else if (args.Length == 2 && args[0] == "ije2xml")
             {
                 IJEMortality ije1 = new IJEMortality(File.ReadAllText(args[1]));
-                DeathRecord d = ije1.ToDeathRecord();
+                DeathRecord d = ije1.ToRecord();
                 Console.WriteLine(XDocument.Parse(d.ToXML()).ToString());
                 return 0;
             }
             else if (args.Length == 2 && args[0] == "ije2json")
             {
                 IJEMortality ije1 = new IJEMortality(File.ReadAllText(args[1]));
-                DeathRecord d = ije1.ToDeathRecord();
+                DeathRecord d = ije1.ToRecord();
                 Console.WriteLine(d.ToJSON());
                 return 0;
             }
@@ -522,7 +523,7 @@ namespace VRDR.CLI
                   string ijeFile = args[i];
                   string ijeRawRecord = File.ReadAllText(ijeFile);
                   IJEMortality ije = new IJEMortality(ijeRawRecord);
-                  DeathRecord d = ije.ToDeathRecord();
+                  DeathRecord d = ije.ToRecord();
                   string outputFilename = ijeFile.Replace(".ije", ".json");
                   StreamWriter sw = new StreamWriter(outputFilename);
                   sw.WriteLine(d.ToJSON());
@@ -597,7 +598,7 @@ namespace VRDR.CLI
                 {
                     ije1 = new IJEMortality(d);
                     ije2 = new IJEMortality(ije1.ToString());
-                    ije3 = new IJEMortality(new DeathRecord(ije2.ToDeathRecord().ToXML()));
+                    ije3 = new IJEMortality(new DeathRecord(ije2.ToRecord().ToXML()));
                 }
                 catch (Exception e)
                 {
@@ -721,7 +722,7 @@ namespace VRDR.CLI
                         typeof(IJEMortality).GetProperty(keyAndValue[0]).SetValue(ije, keyAndValue[1]);
                     }
                 }
-                DeathRecord dr = ije.ToDeathRecord();
+                DeathRecord dr = ije.ToRecord();
                 Console.WriteLine(dr.ToJson());
             }
             else if (args.Length == 3 && args[0] == "compare")
@@ -910,8 +911,8 @@ namespace VRDR.CLI
                     IJEMortality ijeRecord = trx2ije(args[1]);
                     ijeRecord.trx.CS = "3";
                     ijeRecord.trx.SHIP = "555";
-                    CauseOfDeathCodingMessage cod = new CauseOfDeathCodingMessage(ijeRecord.ToDeathRecord());
-                    //CauseOfDeathCodingUpdateMessage cod = new CauseOfDeathCodingUpdateMessage(ijeRecord.ToDeathRecord());
+                    CauseOfDeathCodingMessage cod = new CauseOfDeathCodingMessage(ijeRecord.ToRecord());
+                    //CauseOfDeathCodingUpdateMessage cod = new CauseOfDeathCodingUpdateMessage(ijeRecord.ToRecord());
                     Console.WriteLine(cod.ToJSON(true));
                 }
                 else
