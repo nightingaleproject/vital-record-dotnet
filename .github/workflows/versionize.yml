@@ -60,7 +60,7 @@ jobs:
       - name: Get current version
         id: get-version
         run: |
-          echo "version=$(versionize inspect)" >> $GITHUB_OUTPUT
+          echo "version=$(versionize inspect -w ${{ matrix.proj }})" >> $GITHUB_OUTPUT
       - name: Create release Pull Request
         uses: peter-evans/create-pull-request@v5
         id: cpr
