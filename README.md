@@ -3,8 +3,18 @@
 
 ## Projects
 
-- [VRDR](tree/master/VRDR): Vital..
+- [VRDR](VRDR): Vital..
 - [VRDR.Messagaing](tree/master/VRDR.Messaging)
+
+## BFDR 
+
+lorem ipsum
+
+## VRDR
+
+## Canary
+
+
 
 ## Migration notes
 
