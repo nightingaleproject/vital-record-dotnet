@@ -1,0 +1,30 @@
+name: Versionize
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+jobs:
+  versionize:
+    name: versionize each project
+    runs-on: ubuntu-latest
+    needs: assess
+    strategy:
+      matrix:
+        proj: [VRDR,VRDR.CLI]
+    steps:
+      - run: echo ${{ matrix.proj }}
+
+
+  assess:
+    runs-on: ubuntu-latest
+    outputs:
+      proj: ${{ steps.proj_filter.outputs.PROJ }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
+      - run: git diff-tree HEAD
+      - name: Filter list of changed projects
+        id: proj_filter
+        run: echo "PROJ=$(git diff-tree HEAD | awk '$1$2~/04/' | cut -f2- | egrep 'VRDR.CLI|VRDR')" >> "$GITHUB_OUTPUT"
