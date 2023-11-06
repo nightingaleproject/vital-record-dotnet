@@ -1,4 +1,4 @@
-name: publish to nuget
+name: Publish project to NuGet
 on:
   push:
     branches:
@@ -18,7 +18,7 @@ jobs:
         with:
           dotnet-version: 6.0.x
       # Publish
-      - name: publish on version change
+      - name: Publish to NuGet
         uses: alirezanet/publish-nuget@v3.1.0
         with:
           PROJECT_FILE_PATH: ${{ matrix.proj }}/${{ matrix.proj }}.csproj # Relative to repository root

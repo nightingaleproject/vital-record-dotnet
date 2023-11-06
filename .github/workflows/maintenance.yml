@@ -1,4 +1,4 @@
-name: Maintenance
+name: Dependency maintenance
 
 on:
   pull_request:
