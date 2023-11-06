@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="3.3.1"></a>
+## [3.3.1](https://www.github.com/nightingaleproject/vital-record-dotnet-demo/releases/tag/v3.3.1) (2023-11-06)
+
+### Bug Fixes
+
+* commit message ([f0b11ec](https://www.github.com/nightingaleproject/vital-record-dotnet-demo/commit/f0b11ece197f70bff5c20e04141110b4d4e55fed))
+* correct typo ([9b4ad75](https://www.github.com/nightingaleproject/vital-record-dotnet-demo/commit/9b4ad75c469719c60f330732991b9320274e964e))
+
+### Other
+
+* Merge pull request #4 from nightingaleproject/versionize-VRDR.CLI ([c4b561c](https://www.github.com/nightingaleproject/vital-record-dotnet-demo/commit/c4b561c8cbabb81e3790629273131f7717394ef9))
+
 <a name="3.3.0"></a>
 ## [3.3.0](https://www.github.com/nightingaleproject/vital-record-dotnet-demo/releases/tag/v3.3.0) (2023-11-05)
 
