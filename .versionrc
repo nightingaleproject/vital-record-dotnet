@@ -6,8 +6,7 @@
     }
   ],
   "skip": {
-    "commit": true,
-    "tag": true
+    "commit": true
   },
-  "tagPrefix": null
+  "tagPrefix": ""
 }
