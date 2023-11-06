@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-  <Version>3.2.3</Version>
+  <Version>3.3.0</Version>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp6.0</TargetFramework>
     <TargetFrameworks>netcoreapp6.0</TargetFrameworks>
