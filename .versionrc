@@ -1,0 +1,13 @@
+{
+  "bumpFiles": [
+    {
+      "filename": "VERSION",
+      "type": "plain-text"
+    }
+  ],
+  "skip": {
+    "commit": true,
+    "tag": true
+  },
+  "tagPrefix": null
+}
